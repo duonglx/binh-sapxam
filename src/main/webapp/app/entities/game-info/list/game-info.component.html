@@ -80,6 +80,12 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="gameScore.gDesc">
+            <div class="d-flex">
+              <span jhiTranslate="binhSapXamApp.gameInfo.gameScore">Game Score</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -96,6 +102,11 @@
           <td>{{ gameInfo.playerName4 }}</td>
           <td>
             {{ gameInfo.user?.login }}
+          </td>
+          <td>
+            <div *ngIf="gameInfo.gameScore">
+              <a [routerLink]="['/game-score', gameInfo.gameScore.id, 'view']">{{ gameInfo.gameScore.gDesc }}</a>
+            </div>
           </td>
           <td class="text-end">
             <div class="btn-group">

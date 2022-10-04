@@ -27,6 +27,7 @@ describe('GameInfo Form Service', () => {
             playerName3: expect.any(Object),
             playerName4: expect.any(Object),
             user: expect.any(Object),
+            gameScore: expect.any(Object),
           })
         );
       });
@@ -44,6 +45,7 @@ describe('GameInfo Form Service', () => {
             playerName3: expect.any(Object),
             playerName4: expect.any(Object),
             user: expect.any(Object),
+            gameScore: expect.any(Object),
           })
         );
       });

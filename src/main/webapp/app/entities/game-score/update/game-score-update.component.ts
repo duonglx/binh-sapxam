@@ -9,8 +9,6 @@ import { IGameScore } from '../game-score.model';
 import { GameScoreService } from '../service/game-score.service';
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
-import { IGameInfo } from 'app/entities/game-info/game-info.model';
-import { GameInfoService } from 'app/entities/game-info/service/game-info.service';
 
 @Component({
   selector: 'jhi-game-score-update',
@@ -21,7 +19,6 @@ export class GameScoreUpdateComponent implements OnInit {
   gameScore: IGameScore | null = null;
 
   usersSharedCollection: IUser[] = [];
-  gameInfosSharedCollection: IGameInfo[] = [];
 
   editForm: GameScoreFormGroup = this.gameScoreFormService.createGameScoreFormGroup();
 
@@ -29,13 +26,10 @@ export class GameScoreUpdateComponent implements OnInit {
     protected gameScoreService: GameScoreService,
     protected gameScoreFormService: GameScoreFormService,
     protected userService: UserService,
-    protected gameInfoService: GameInfoService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
   compareUser = (o1: IUser | null, o2: IUser | null): boolean => this.userService.compareUser(o1, o2);
-
-  compareGameInfo = (o1: IGameInfo | null, o2: IGameInfo | null): boolean => this.gameInfoService.compareGameInfo(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ gameScore }) => {
@@ -86,10 +80,6 @@ export class GameScoreUpdateComponent implements OnInit {
     this.gameScoreFormService.resetForm(this.editForm, gameScore);
 
     this.usersSharedCollection = this.userService.addUserToCollectionIfMissing<IUser>(this.usersSharedCollection, gameScore.user);
-    this.gameInfosSharedCollection = this.gameInfoService.addGameInfoToCollectionIfMissing<IGameInfo>(
-      this.gameInfosSharedCollection,
-      gameScore.gameInfo
-    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -98,15 +88,5 @@ export class GameScoreUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
       .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing<IUser>(users, this.gameScore?.user)))
       .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
-
-    this.gameInfoService
-      .query()
-      .pipe(map((res: HttpResponse<IGameInfo[]>) => res.body ?? []))
-      .pipe(
-        map((gameInfos: IGameInfo[]) =>
-          this.gameInfoService.addGameInfoToCollectionIfMissing<IGameInfo>(gameInfos, this.gameScore?.gameInfo)
-        )
-      )
-      .subscribe((gameInfos: IGameInfo[]) => (this.gameInfosSharedCollection = gameInfos));
   }
 }

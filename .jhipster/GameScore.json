@@ -51,12 +51,6 @@
       "relationshipName": "user",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
-    },
-    {
-      "otherEntityName": "gameInfo",
-      "otherEntityRelationshipName": "gameScore",
-      "relationshipName": "gameInfo",
-      "relationshipType": "many-to-one"
     }
   ],
   "service": "no"
