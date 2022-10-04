@@ -30,17 +30,17 @@
               class="form-text text-danger"
               *ngIf="editForm.get('playerScore1')?.errors?.min"
               jhiTranslate="entity.validation.min"
-              [translateValues]="{ min: 2 }"
+              [translateValues]="{ min: -50 }"
             >
-              This field should be at least 2.
+              This field should be at least -50.
             </small>
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('playerScore1')?.errors?.max"
               jhiTranslate="entity.validation.max"
-              [translateValues]="{ max: 3 }"
+              [translateValues]="{ max: 50 }"
             >
-              This field cannot be more than 3.
+              This field cannot be more than 50.
             </small>
             <small
               class="form-text text-danger"
@@ -224,7 +224,7 @@
             [compareWith]="compareGameInfo"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="gameInfoOption" *ngFor="let gameInfoOption of gameInfosSharedCollection">{{ gameInfoOption.id }}</option>
+            <option [ngValue]="gameInfoOption" *ngFor="let gameInfoOption of gameInfosSharedCollection">{{ gameInfoOption.gDesc }}</option>
           </select>
         </div>
       </div>

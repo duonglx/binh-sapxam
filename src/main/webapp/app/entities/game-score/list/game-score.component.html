@@ -74,7 +74,7 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="gameInfo.id">
+          <th scope="col" jhiSortBy="gameInfo.gDesc">
             <div class="d-flex">
               <span jhiTranslate="binhSapXamApp.gameScore.gameInfo">Game Info</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
@@ -103,7 +103,7 @@
           </td>
           <td>
             <div *ngIf="gameScore.gameInfo">
-              <a [routerLink]="['/game-info', gameScore.gameInfo.id, 'view']">{{ gameScore.gameInfo.id }}</a>
+              <a [routerLink]="['/game-info', gameScore.gameInfo.id, 'view']">{{ gameScore.gameInfo.gDesc }}</a>
             </div>
           </td>
           <td class="text-end">

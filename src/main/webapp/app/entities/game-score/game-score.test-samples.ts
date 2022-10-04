@@ -17,7 +17,7 @@ export const sampleWithPartialData: IGameScore = {
 
 export const sampleWithFullData: IGameScore = {
   id: 81125,
-  playerScore1: 3,
+  playerScore1: 20,
   playerScore2: 3,
   playerScore3: 3,
   playerScore4: 2,

@@ -41,7 +41,7 @@
         <dt><span jhiTranslate="binhSapXamApp.gameScore.gameInfo">Game Info</span></dt>
         <dd>
           <div *ngIf="gameScore.gameInfo">
-            <a [routerLink]="['/game-info', gameScore.gameInfo.id, 'view']">{{ gameScore.gameInfo.id }}</a>
+            <a [routerLink]="['/game-info', gameScore.gameInfo.id, 'view']">{{ gameScore.gameInfo.gDesc }}</a>
           </div>
         </dd>
       </dl>

@@ -10,7 +10,7 @@ export interface IGameScore {
   playerScore4?: number | null;
   createdDate?: dayjs.Dayjs | null;
   user?: Pick<IUser, 'id' | 'login'> | null;
-  gameInfo?: Pick<IGameInfo, 'id'> | null;
+  gameInfo?: Pick<IGameInfo, 'id' | 'gDesc'> | null;
 }
 
 export type NewGameScore = Omit<IGameScore, 'id'> & { id: null };

@@ -1,10 +1,7 @@
 package com.duonglx.binhsxapp.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -47,11 +44,6 @@ public class GameInfo implements Serializable {
 
     @Column(name = "player_name_4")
     private String playerName4;
-
-    @OneToMany(mappedBy = "gameInfo")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "user", "gameInfo" }, allowSetters = true)
-    private Set<GameScore> gameScores = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -148,37 +140,6 @@ public class GameInfo implements Serializable {
 
     public void setPlayerName4(String playerName4) {
         this.playerName4 = playerName4;
-    }
-
-    public Set<GameScore> getGameScores() {
-        return this.gameScores;
-    }
-
-    public void setGameScores(Set<GameScore> gameScores) {
-        if (this.gameScores != null) {
-            this.gameScores.forEach(i -> i.setGameInfo(null));
-        }
-        if (gameScores != null) {
-            gameScores.forEach(i -> i.setGameInfo(this));
-        }
-        this.gameScores = gameScores;
-    }
-
-    public GameInfo gameScores(Set<GameScore> gameScores) {
-        this.setGameScores(gameScores);
-        return this;
-    }
-
-    public GameInfo addGameScore(GameScore gameScore) {
-        this.gameScores.add(gameScore);
-        gameScore.setGameInfo(this);
-        return this;
-    }
-
-    public GameInfo removeGameScore(GameScore gameScore) {
-        this.gameScores.remove(gameScore);
-        gameScore.setGameInfo(null);
-        return this;
     }
 
     public User getUser() {

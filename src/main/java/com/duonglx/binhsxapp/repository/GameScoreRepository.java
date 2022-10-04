@@ -30,14 +30,16 @@ public interface GameScoreRepository extends JpaRepository<GameScore, Long> {
     }
 
     @Query(
-        value = "select distinct gameScore from GameScore gameScore left join fetch gameScore.user",
+        value = "select distinct gameScore from GameScore gameScore left join fetch gameScore.user left join fetch gameScore.gameInfo",
         countQuery = "select count(distinct gameScore) from GameScore gameScore"
     )
     Page<GameScore> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct gameScore from GameScore gameScore left join fetch gameScore.user")
+    @Query("select distinct gameScore from GameScore gameScore left join fetch gameScore.user left join fetch gameScore.gameInfo")
     List<GameScore> findAllWithToOneRelationships();
 
-    @Query("select gameScore from GameScore gameScore left join fetch gameScore.user where gameScore.id =:id")
+    @Query(
+        "select gameScore from GameScore gameScore left join fetch gameScore.user left join fetch gameScore.gameInfo where gameScore.id =:id"
+    )
     Optional<GameScore> findOneWithToOneRelationships(@Param("id") Long id);
 }

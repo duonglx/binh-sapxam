@@ -25,8 +25,8 @@ public class GameScore implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Min(value = 2)
-    @Max(value = 3)
+    @Min(value = -50)
+    @Max(value = 50)
     @Column(name = "player_score_1")
     private Integer playerScore1;
 
@@ -54,7 +54,7 @@ public class GameScore implements Serializable {
     private User user;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "gameScores", "user" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
     private GameInfo gameInfo;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
