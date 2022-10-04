@@ -51,6 +51,18 @@ public class CacheConfiguration {
             createCache(cm, com.duonglx.binhsxapp.domain.GameInfo.class.getName());
             createCache(cm, com.duonglx.binhsxapp.domain.GameInfo.class.getName() + ".gameScores");
             createCache(cm, com.duonglx.binhsxapp.domain.GameScore.class.getName());
+            createCache(cm, com.duonglx.binhsxapp.domain.Region.class.getName());
+            createCache(cm, com.duonglx.binhsxapp.domain.Country.class.getName());
+            createCache(cm, com.duonglx.binhsxapp.domain.Location.class.getName());
+            createCache(cm, com.duonglx.binhsxapp.domain.Department.class.getName());
+            createCache(cm, com.duonglx.binhsxapp.domain.Department.class.getName() + ".employees");
+            createCache(cm, com.duonglx.binhsxapp.domain.Task.class.getName());
+            createCache(cm, com.duonglx.binhsxapp.domain.Task.class.getName() + ".jobs");
+            createCache(cm, com.duonglx.binhsxapp.domain.Employee.class.getName());
+            createCache(cm, com.duonglx.binhsxapp.domain.Employee.class.getName() + ".jobs");
+            createCache(cm, com.duonglx.binhsxapp.domain.Job.class.getName());
+            createCache(cm, com.duonglx.binhsxapp.domain.Job.class.getName() + ".tasks");
+            createCache(cm, com.duonglx.binhsxapp.domain.JobHistory.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
