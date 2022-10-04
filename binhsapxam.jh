@@ -15,13 +15,14 @@ entity GameScore {
     createdDate ZonedDateTime required
 }
 
-relationship OneToMany {
-  GameInfo to GameScore
-}
+//relationship OneToMany {
+ // GameInfo{gameScore(gDesc)} to GameScore
+//}
 
 relationship ManyToOne {
   GameInfo{user(login) required} to User
   GameScore{user(login) required} to User
+  GameInfo{gameScore(gDesc)} to GameScore
 }
 
 paginate GameScore with infinite-scroll
