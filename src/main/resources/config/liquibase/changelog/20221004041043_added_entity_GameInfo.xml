@@ -23,16 +23,16 @@
             <column name="g_desc" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="player_1" type="varchar(255)">
+            <column name="player_1" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="player_2" type="varchar(255)">
+            <column name="player_2" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="player_3" type="varchar(255)">
+            <column name="player_3" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="player_4" type="varchar(255)">
+            <column name="player_4" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="created_by" type="varchar(255)">
@@ -67,10 +67,10 @@
             <column name="g_no" type="numeric"/>
             <column name="g_datetime" type="date"/>
             <column name="g_desc" type="string"/>
-            <column name="player_1" type="string"/>
-            <column name="player_2" type="string"/>
-            <column name="player_3" type="string"/>
-            <column name="player_4" type="string"/>
+            <column name="player_1" type="numeric"/>
+            <column name="player_2" type="numeric"/>
+            <column name="player_3" type="numeric"/>
+            <column name="player_4" type="numeric"/>
             <column name="created_by" type="string"/>
             <column name="created_date" type="date"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

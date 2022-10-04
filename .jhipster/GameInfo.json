@@ -19,19 +19,19 @@
     },
     {
       "fieldName": "player1",
-      "fieldType": "String"
+      "fieldType": "Long"
     },
     {
       "fieldName": "player2",
-      "fieldType": "String"
+      "fieldType": "Long"
     },
     {
       "fieldName": "player3",
-      "fieldType": "String"
+      "fieldType": "Long"
     },
     {
       "fieldName": "player4",
-      "fieldType": "String"
+      "fieldType": "Long"
     },
     {
       "fieldName": "createdBy",

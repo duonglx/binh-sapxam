@@ -36,16 +36,16 @@ public class GameInfo implements Serializable {
     private String gDesc;
 
     @Column(name = "player_1")
-    private String player1;
+    private Long player1;
 
     @Column(name = "player_2")
-    private String player2;
+    private Long player2;
 
     @Column(name = "player_3")
-    private String player3;
+    private Long player3;
 
     @Column(name = "player_4")
-    private String player4;
+    private Long player4;
 
     @Column(name = "created_by")
     private String createdBy;
@@ -112,55 +112,55 @@ public class GameInfo implements Serializable {
         this.gDesc = gDesc;
     }
 
-    public String getPlayer1() {
+    public Long getPlayer1() {
         return this.player1;
     }
 
-    public GameInfo player1(String player1) {
+    public GameInfo player1(Long player1) {
         this.setPlayer1(player1);
         return this;
     }
 
-    public void setPlayer1(String player1) {
+    public void setPlayer1(Long player1) {
         this.player1 = player1;
     }
 
-    public String getPlayer2() {
+    public Long getPlayer2() {
         return this.player2;
     }
 
-    public GameInfo player2(String player2) {
+    public GameInfo player2(Long player2) {
         this.setPlayer2(player2);
         return this;
     }
 
-    public void setPlayer2(String player2) {
+    public void setPlayer2(Long player2) {
         this.player2 = player2;
     }
 
-    public String getPlayer3() {
+    public Long getPlayer3() {
         return this.player3;
     }
 
-    public GameInfo player3(String player3) {
+    public GameInfo player3(Long player3) {
         this.setPlayer3(player3);
         return this;
     }
 
-    public void setPlayer3(String player3) {
+    public void setPlayer3(Long player3) {
         this.player3 = player3;
     }
 
-    public String getPlayer4() {
+    public Long getPlayer4() {
         return this.player4;
     }
 
-    public GameInfo player4(String player4) {
+    public GameInfo player4(Long player4) {
         this.setPlayer4(player4);
         return this;
     }
 
-    public void setPlayer4(String player4) {
+    public void setPlayer4(Long player4) {
         this.player4 = player4;
     }
 
@@ -248,10 +248,10 @@ public class GameInfo implements Serializable {
             ", gNo=" + getgNo() +
             ", gDatetime='" + getgDatetime() + "'" +
             ", gDesc='" + getgDesc() + "'" +
-            ", player1='" + getPlayer1() + "'" +
-            ", player2='" + getPlayer2() + "'" +
-            ", player3='" + getPlayer3() + "'" +
-            ", player4='" + getPlayer4() + "'" +
+            ", player1=" + getPlayer1() +
+            ", player2=" + getPlayer2() +
+            ", player3=" + getPlayer3() +
+            ", player4=" + getPlayer4() +
             ", createdBy='" + getCreatedBy() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             "}";
