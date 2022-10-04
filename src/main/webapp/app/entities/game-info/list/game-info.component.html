@@ -1,0 +1,144 @@
+<div>
+  <h2 id="page-heading" data-cy="GameInfoHeading">
+    <span jhiTranslate="binhSapXamApp.gameInfo.home.title">Game Infos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="binhSapXamApp.gameInfo.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-game-info"
+        [routerLink]="['/game-info/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="binhSapXamApp.gameInfo.home.createLabel"> Create a new Game Info </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="gameInfos?.length === 0">
+    <span jhiTranslate="binhSapXamApp.gameInfo.home.notFound">No Game Infos found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="gameInfos && gameInfos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="gNo">
+            <div class="d-flex">
+              <span jhiTranslate="binhSapXamApp.gameInfo.gNo">G No</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="gDatetime">
+            <div class="d-flex">
+              <span jhiTranslate="binhSapXamApp.gameInfo.gDatetime">G Datetime</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="gDesc">
+            <div class="d-flex">
+              <span jhiTranslate="binhSapXamApp.gameInfo.gDesc">G Desc</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="player1">
+            <div class="d-flex">
+              <span jhiTranslate="binhSapXamApp.gameInfo.player1">Player 1</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="player2">
+            <div class="d-flex">
+              <span jhiTranslate="binhSapXamApp.gameInfo.player2">Player 2</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="player3">
+            <div class="d-flex">
+              <span jhiTranslate="binhSapXamApp.gameInfo.player3">Player 3</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="player4">
+            <div class="d-flex">
+              <span jhiTranslate="binhSapXamApp.gameInfo.player4">Player 4</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="createdBy">
+            <div class="d-flex">
+              <span jhiTranslate="binhSapXamApp.gameInfo.createdBy">Created By</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="createdDate">
+            <div class="d-flex">
+              <span jhiTranslate="binhSapXamApp.gameInfo.createdDate">Created Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let gameInfo of gameInfos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/game-info', gameInfo.id, 'view']">{{ gameInfo.id }}</a>
+          </td>
+          <td>{{ gameInfo.gNo }}</td>
+          <td>{{ gameInfo.gDatetime | formatMediumDatetime }}</td>
+          <td>{{ gameInfo.gDesc }}</td>
+          <td>{{ gameInfo.player1 }}</td>
+          <td>{{ gameInfo.player2 }}</td>
+          <td>{{ gameInfo.player3 }}</td>
+          <td>{{ gameInfo.player4 }}</td>
+          <td>{{ gameInfo.createdBy }}</td>
+          <td>{{ gameInfo.createdDate | formatMediumDatetime }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/game-info', gameInfo.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/game-info', gameInfo.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(gameInfo)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

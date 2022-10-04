@@ -1,0 +1,47 @@
+{
+  "applications": "*",
+  "changelogDate": "20221004041044",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "game_score",
+  "fields": [
+    {
+      "fieldName": "gNo",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "player1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "player2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "player3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "player4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GameScore",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "gameInfo",
+      "otherEntityRelationshipName": "gameScore",
+      "relationshipName": "gameInfo",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}
