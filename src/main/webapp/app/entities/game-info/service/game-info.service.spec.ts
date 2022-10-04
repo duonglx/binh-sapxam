@@ -9,7 +9,6 @@ import { GameInfoService, RestGameInfo } from './game-info.service';
 const requireRestSample: RestGameInfo = {
   ...sampleWithRequiredData,
   gDatetime: sampleWithRequiredData.gDatetime?.toJSON(),
-  createdDate: sampleWithRequiredData.createdDate?.toJSON(),
 };
 
 describe('GameInfo Service', () => {

@@ -9,6 +9,9 @@ import { of, Subject, from } from 'rxjs';
 import { GameScoreFormService } from './game-score-form.service';
 import { GameScoreService } from '../service/game-score.service';
 import { IGameScore } from '../game-score.model';
+
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
 import { IGameInfo } from 'app/entities/game-info/game-info.model';
 import { GameInfoService } from 'app/entities/game-info/service/game-info.service';
 
@@ -20,6 +23,7 @@ describe('GameScore Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let gameScoreFormService: GameScoreFormService;
   let gameScoreService: GameScoreService;
+  let userService: UserService;
   let gameInfoService: GameInfoService;
 
   beforeEach(() => {
@@ -43,12 +47,35 @@ describe('GameScore Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     gameScoreFormService = TestBed.inject(GameScoreFormService);
     gameScoreService = TestBed.inject(GameScoreService);
+    userService = TestBed.inject(UserService);
     gameInfoService = TestBed.inject(GameInfoService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
+    it('Should call User query and add missing value', () => {
+      const gameScore: IGameScore = { id: 456 };
+      const user: IUser = { id: 80869 };
+      gameScore.user = user;
+
+      const userCollection: IUser[] = [{ id: 54377 }];
+      jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
+      const additionalUsers = [user];
+      const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
+      jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ gameScore });
+      comp.ngOnInit();
+
+      expect(userService.query).toHaveBeenCalled();
+      expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(
+        userCollection,
+        ...additionalUsers.map(expect.objectContaining)
+      );
+      expect(comp.usersSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should call GameInfo query and add missing value', () => {
       const gameScore: IGameScore = { id: 456 };
       const gameInfo: IGameInfo = { id: 47839 };
@@ -73,12 +100,15 @@ describe('GameScore Management Update Component', () => {
 
     it('Should update editForm', () => {
       const gameScore: IGameScore = { id: 456 };
+      const user: IUser = { id: 34435 };
+      gameScore.user = user;
       const gameInfo: IGameInfo = { id: 91211 };
       gameScore.gameInfo = gameInfo;
 
       activatedRoute.data = of({ gameScore });
       comp.ngOnInit();
 
+      expect(comp.usersSharedCollection).toContain(user);
       expect(comp.gameInfosSharedCollection).toContain(gameInfo);
       expect(comp.gameScore).toEqual(gameScore);
     });
@@ -153,6 +183,16 @@ describe('GameScore Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
+    describe('compareUser', () => {
+      it('Should forward to userService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(userService, 'compareUser');
+        comp.compareUser(entity, entity2);
+        expect(userService.compareUser).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
     describe('compareGameInfo', () => {
       it('Should forward to gameInfoService', () => {
         const entity = { id: 123 };

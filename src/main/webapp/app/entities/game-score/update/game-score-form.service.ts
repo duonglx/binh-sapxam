@@ -31,12 +31,12 @@ type GameScoreFormDefaults = Pick<NewGameScore, 'id' | 'createdDate'>;
 
 type GameScoreFormGroupContent = {
   id: FormControl<GameScoreFormRawValue['id'] | NewGameScore['id']>;
-  gNo: FormControl<GameScoreFormRawValue['gNo']>;
   playerScore1: FormControl<GameScoreFormRawValue['playerScore1']>;
   playerScore2: FormControl<GameScoreFormRawValue['playerScore2']>;
   playerScore3: FormControl<GameScoreFormRawValue['playerScore3']>;
   playerScore4: FormControl<GameScoreFormRawValue['playerScore4']>;
   createdDate: FormControl<GameScoreFormRawValue['createdDate']>;
+  user: FormControl<GameScoreFormRawValue['user']>;
   gameInfo: FormControl<GameScoreFormRawValue['gameInfo']>;
 };
 
@@ -57,12 +57,12 @@ export class GameScoreFormService {
           validators: [Validators.required],
         }
       ),
-      gNo: new FormControl(gameScoreRawValue.gNo),
       playerScore1: new FormControl(gameScoreRawValue.playerScore1),
       playerScore2: new FormControl(gameScoreRawValue.playerScore2),
       playerScore3: new FormControl(gameScoreRawValue.playerScore3),
       playerScore4: new FormControl(gameScoreRawValue.playerScore4),
       createdDate: new FormControl(gameScoreRawValue.createdDate),
+      user: new FormControl(gameScoreRawValue.user),
       gameInfo: new FormControl(gameScoreRawValue.gameInfo),
     });
   }

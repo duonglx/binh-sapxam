@@ -20,15 +20,14 @@ describe('GameInfo Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            gNo: expect.any(Object),
             gDatetime: expect.any(Object),
             gDesc: expect.any(Object),
-            player1: expect.any(Object),
-            player2: expect.any(Object),
-            player3: expect.any(Object),
-            player4: expect.any(Object),
+            playerName1: expect.any(Object),
+            playerName2: expect.any(Object),
+            playerName3: expect.any(Object),
+            playerName4: expect.any(Object),
             createdBy: expect.any(Object),
-            createdDate: expect.any(Object),
+            user: expect.any(Object),
           })
         );
       });
@@ -39,15 +38,14 @@ describe('GameInfo Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            gNo: expect.any(Object),
             gDatetime: expect.any(Object),
             gDesc: expect.any(Object),
-            player1: expect.any(Object),
-            player2: expect.any(Object),
-            player3: expect.any(Object),
-            player4: expect.any(Object),
+            playerName1: expect.any(Object),
+            playerName2: expect.any(Object),
+            playerName3: expect.any(Object),
+            playerName4: expect.any(Object),
             createdBy: expect.any(Object),
-            createdDate: expect.any(Object),
+            user: expect.any(Object),
           })
         );
       });

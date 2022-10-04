@@ -14,10 +14,6 @@
         <dd>
           <span>{{ gameInfo.id }}</span>
         </dd>
-        <dt><span jhiTranslate="binhSapXamApp.gameInfo.gNo">G No</span></dt>
-        <dd>
-          <span>{{ gameInfo.gNo }}</span>
-        </dd>
         <dt><span jhiTranslate="binhSapXamApp.gameInfo.gDatetime">G Datetime</span></dt>
         <dd>
           <span>{{ gameInfo.gDatetime | formatMediumDatetime }}</span>
@@ -26,29 +22,29 @@
         <dd>
           <span>{{ gameInfo.gDesc }}</span>
         </dd>
-        <dt><span jhiTranslate="binhSapXamApp.gameInfo.player1">Player 1</span></dt>
+        <dt><span jhiTranslate="binhSapXamApp.gameInfo.playerName1">Player Name 1</span></dt>
         <dd>
-          <span>{{ gameInfo.player1 }}</span>
+          <span>{{ gameInfo.playerName1 }}</span>
         </dd>
-        <dt><span jhiTranslate="binhSapXamApp.gameInfo.player2">Player 2</span></dt>
+        <dt><span jhiTranslate="binhSapXamApp.gameInfo.playerName2">Player Name 2</span></dt>
         <dd>
-          <span>{{ gameInfo.player2 }}</span>
+          <span>{{ gameInfo.playerName2 }}</span>
         </dd>
-        <dt><span jhiTranslate="binhSapXamApp.gameInfo.player3">Player 3</span></dt>
+        <dt><span jhiTranslate="binhSapXamApp.gameInfo.playerName3">Player Name 3</span></dt>
         <dd>
-          <span>{{ gameInfo.player3 }}</span>
+          <span>{{ gameInfo.playerName3 }}</span>
         </dd>
-        <dt><span jhiTranslate="binhSapXamApp.gameInfo.player4">Player 4</span></dt>
+        <dt><span jhiTranslate="binhSapXamApp.gameInfo.playerName4">Player Name 4</span></dt>
         <dd>
-          <span>{{ gameInfo.player4 }}</span>
+          <span>{{ gameInfo.playerName4 }}</span>
         </dd>
         <dt><span jhiTranslate="binhSapXamApp.gameInfo.createdBy">Created By</span></dt>
         <dd>
           <span>{{ gameInfo.createdBy }}</span>
         </dd>
-        <dt><span jhiTranslate="binhSapXamApp.gameInfo.createdDate">Created Date</span></dt>
+        <dt><span jhiTranslate="binhSapXamApp.gameInfo.user">User</span></dt>
         <dd>
-          <span>{{ gameInfo.createdDate | formatMediumDatetime }}</span>
+          <span>{{ gameInfo.user?.login }}</span>
         </dd>
       </dl>
 

@@ -14,9 +14,6 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="g_no" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <column name="player_score_1" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -30,6 +27,9 @@
                 <constraints nullable="true" />
             </column>
             <column name="created_date" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="user_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="game_info_id" type="bigint">
@@ -57,7 +57,6 @@
                   tableName="game_score"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="g_no" type="numeric"/>
             <column name="player_score_1" type="numeric"/>
             <column name="player_score_2" type="numeric"/>
             <column name="player_score_3" type="numeric"/>

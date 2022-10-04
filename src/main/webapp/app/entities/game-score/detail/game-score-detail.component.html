@@ -14,10 +14,6 @@
         <dd>
           <span>{{ gameScore.id }}</span>
         </dd>
-        <dt><span jhiTranslate="binhSapXamApp.gameScore.gNo">G No</span></dt>
-        <dd>
-          <span>{{ gameScore.gNo }}</span>
-        </dd>
         <dt><span jhiTranslate="binhSapXamApp.gameScore.playerScore1">Player Score 1</span></dt>
         <dd>
           <span>{{ gameScore.playerScore1 }}</span>
@@ -37,6 +33,10 @@
         <dt><span jhiTranslate="binhSapXamApp.gameScore.createdDate">Created Date</span></dt>
         <dd>
           <span>{{ gameScore.createdDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="binhSapXamApp.gameScore.user">User</span></dt>
+        <dd>
+          <span>{{ gameScore.user?.login }}</span>
         </dd>
         <dt><span jhiTranslate="binhSapXamApp.gameScore.gameInfo">Game Info</span></dt>
         <dd>

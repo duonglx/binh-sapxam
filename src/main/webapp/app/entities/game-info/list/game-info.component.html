@@ -38,12 +38,6 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="gNo">
-            <div class="d-flex">
-              <span jhiTranslate="binhSapXamApp.gameInfo.gNo">G No</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="gDatetime">
             <div class="d-flex">
               <span jhiTranslate="binhSapXamApp.gameInfo.gDatetime">G Datetime</span>
@@ -56,27 +50,27 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="player1">
+          <th scope="col" jhiSortBy="playerName1">
             <div class="d-flex">
-              <span jhiTranslate="binhSapXamApp.gameInfo.player1">Player 1</span>
+              <span jhiTranslate="binhSapXamApp.gameInfo.playerName1">Player Name 1</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="player2">
+          <th scope="col" jhiSortBy="playerName2">
             <div class="d-flex">
-              <span jhiTranslate="binhSapXamApp.gameInfo.player2">Player 2</span>
+              <span jhiTranslate="binhSapXamApp.gameInfo.playerName2">Player Name 2</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="player3">
+          <th scope="col" jhiSortBy="playerName3">
             <div class="d-flex">
-              <span jhiTranslate="binhSapXamApp.gameInfo.player3">Player 3</span>
+              <span jhiTranslate="binhSapXamApp.gameInfo.playerName3">Player Name 3</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="player4">
+          <th scope="col" jhiSortBy="playerName4">
             <div class="d-flex">
-              <span jhiTranslate="binhSapXamApp.gameInfo.player4">Player 4</span>
+              <span jhiTranslate="binhSapXamApp.gameInfo.playerName4">Player Name 4</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -86,9 +80,9 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="createdDate">
+          <th scope="col" jhiSortBy="user.login">
             <div class="d-flex">
-              <span jhiTranslate="binhSapXamApp.gameInfo.createdDate">Created Date</span>
+              <span jhiTranslate="binhSapXamApp.gameInfo.user">User</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -100,15 +94,16 @@
           <td>
             <a [routerLink]="['/game-info', gameInfo.id, 'view']">{{ gameInfo.id }}</a>
           </td>
-          <td>{{ gameInfo.gNo }}</td>
           <td>{{ gameInfo.gDatetime | formatMediumDatetime }}</td>
           <td>{{ gameInfo.gDesc }}</td>
-          <td>{{ gameInfo.player1 }}</td>
-          <td>{{ gameInfo.player2 }}</td>
-          <td>{{ gameInfo.player3 }}</td>
-          <td>{{ gameInfo.player4 }}</td>
+          <td>{{ gameInfo.playerName1 }}</td>
+          <td>{{ gameInfo.playerName2 }}</td>
+          <td>{{ gameInfo.playerName3 }}</td>
+          <td>{{ gameInfo.playerName4 }}</td>
           <td>{{ gameInfo.createdBy }}</td>
-          <td>{{ gameInfo.createdDate | formatMediumDatetime }}</td>
+          <td>
+            {{ gameInfo.user?.login }}
+          </td>
           <td class="text-end">
             <div class="btn-group">
               <button

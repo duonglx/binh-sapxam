@@ -1,17 +1,14 @@
-entity GameInfo {
-    gNo Long,
+entity GameInfo {    
     gDatetime Instant,
     gDesc String,
-    player1 String,
-    player2 String,
-    player3 String,
-    player4 String,
-    createdBy String,
-    createdDate Instant
+    playerName1 String,
+    playerName2 String,
+    playerName3 String,
+    playerName4 String,
+    createdBy String
 }
 
-entity GameScore {
-	gNo Long,
+entity GameScore {	
     playerScore1 Long,
     playerScore2 Long,
     playerScore3 Long,
@@ -21,6 +18,11 @@ entity GameScore {
 
 relationship OneToMany {
   GameInfo to GameScore
+}
+
+relationship ManyToOne {
+  GameInfo{user(login)} to User
+  GameScore{user(login)} to User
 }
 
 paginate GameScore with pagination
