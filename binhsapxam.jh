@@ -1,0 +1,28 @@
+entity GameInfo {
+    gNo Long,
+    gDatetime Instant,
+    gDesc String,
+    player1 String,
+    player2 String,
+    player3 String,
+    player4 String,
+    createdBy String,
+    createdDate Instant
+}
+
+entity GameScore {
+	gNo Long,
+    player1 String,
+    player2 String,
+    player3 String,
+    player4 String,
+    createdDate Instant
+}
+
+relationship OneToMany {
+  GameInfo to GameScore
+  GameScore{gNo} to GameInfo
+}
+
+paginate GameScore with pagination
+    
