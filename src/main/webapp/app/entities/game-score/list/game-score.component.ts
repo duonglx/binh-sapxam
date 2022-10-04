@@ -6,10 +6,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IGameScore } from '../game-score.model';
 
-import { ITEMS_PER_PAGE, PAGE_HEADER, TOTAL_COUNT_RESPONSE_HEADER } from 'app/config/pagination.constants';
+import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
 import { EntityArrayResponseType, GameScoreService } from '../service/game-score.service';
 import { GameScoreDeleteDialogComponent } from '../delete/game-score-delete-dialog.component';
+import { ParseLinks } from 'app/core/util/parse-links.service';
 
 @Component({
   selector: 'jhi-game-score',
@@ -23,15 +24,29 @@ export class GameScoreComponent implements OnInit {
   ascending = true;
 
   itemsPerPage = ITEMS_PER_PAGE;
-  totalItems = 0;
+  links: { [key: string]: number } = {
+    last: 0,
+  };
   page = 1;
 
   constructor(
     protected gameScoreService: GameScoreService,
     protected activatedRoute: ActivatedRoute,
     public router: Router,
+    protected parseLinks: ParseLinks,
     protected modalService: NgbModal
   ) {}
+
+  reset(): void {
+    this.page = 1;
+    this.gameScores = [];
+    this.load();
+  }
+
+  loadPage(page: number): void {
+    this.page = page;
+    this.load();
+  }
 
   trackId = (_index: number, item: IGameScore): number => this.gameScoreService.getGameScoreIdentifier(item);
 
@@ -79,8 +94,6 @@ export class GameScoreComponent implements OnInit {
   }
 
   protected fillComponentAttributeFromRoute(params: ParamMap, data: Data): void {
-    const page = params.get(PAGE_HEADER);
-    this.page = +(page ?? 1);
     const sort = (params.get(SORT) ?? data[DEFAULT_SORT_DATA]).split(',');
     this.predicate = sort[0];
     this.ascending = sort[1] === ASC;
@@ -93,11 +106,26 @@ export class GameScoreComponent implements OnInit {
   }
 
   protected fillComponentAttributesFromResponseBody(data: IGameScore[] | null): IGameScore[] {
-    return data ?? [];
+    const gameScoresNew = this.gameScores ?? [];
+    if (data) {
+      for (const d of data) {
+        if (gameScoresNew.map(op => op.id).indexOf(d.id) === -1) {
+          gameScoresNew.push(d);
+        }
+      }
+    }
+    return gameScoresNew;
   }
 
   protected fillComponentAttributesFromResponseHeader(headers: HttpHeaders): void {
-    this.totalItems = Number(headers.get(TOTAL_COUNT_RESPONSE_HEADER));
+    const linkHeader = headers.get('link');
+    if (linkHeader) {
+      this.links = this.parseLinks.parse(linkHeader);
+    } else {
+      this.links = {
+        last: 0,
+      };
+    }
   }
 
   protected queryBackend(page?: number, predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {

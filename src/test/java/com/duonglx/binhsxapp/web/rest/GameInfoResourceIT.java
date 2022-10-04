@@ -1,5 +1,6 @@
 package com.duonglx.binhsxapp.web.rest;
 
+import static com.duonglx.binhsxapp.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
@@ -8,9 +9,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.duonglx.binhsxapp.IntegrationTest;
 import com.duonglx.binhsxapp.domain.GameInfo;
+import com.duonglx.binhsxapp.domain.User;
 import com.duonglx.binhsxapp.repository.GameInfoRepository;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -40,8 +44,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class GameInfoResourceIT {
 
-    private static final Instant DEFAULT_G_DATETIME = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_G_DATETIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final ZonedDateTime DEFAULT_G_DATETIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_G_DATETIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     private static final String DEFAULT_G_DESC = "AAAAAAAAAA";
     private static final String UPDATED_G_DESC = "BBBBBBBBBB";
@@ -57,9 +61,6 @@ class GameInfoResourceIT {
 
     private static final String DEFAULT_PLAYER_NAME_4 = "AAAAAAAAAA";
     private static final String UPDATED_PLAYER_NAME_4 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
-    private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/game-infos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -94,8 +95,12 @@ class GameInfoResourceIT {
             .playerName1(DEFAULT_PLAYER_NAME_1)
             .playerName2(DEFAULT_PLAYER_NAME_2)
             .playerName3(DEFAULT_PLAYER_NAME_3)
-            .playerName4(DEFAULT_PLAYER_NAME_4)
-            .createdBy(DEFAULT_CREATED_BY);
+            .playerName4(DEFAULT_PLAYER_NAME_4);
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        gameInfo.setUser(user);
         return gameInfo;
     }
 
@@ -112,8 +117,12 @@ class GameInfoResourceIT {
             .playerName1(UPDATED_PLAYER_NAME_1)
             .playerName2(UPDATED_PLAYER_NAME_2)
             .playerName3(UPDATED_PLAYER_NAME_3)
-            .playerName4(UPDATED_PLAYER_NAME_4)
-            .createdBy(UPDATED_CREATED_BY);
+            .playerName4(UPDATED_PLAYER_NAME_4);
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        gameInfo.setUser(user);
         return gameInfo;
     }
 
@@ -141,7 +150,6 @@ class GameInfoResourceIT {
         assertThat(testGameInfo.getPlayerName2()).isEqualTo(DEFAULT_PLAYER_NAME_2);
         assertThat(testGameInfo.getPlayerName3()).isEqualTo(DEFAULT_PLAYER_NAME_3);
         assertThat(testGameInfo.getPlayerName4()).isEqualTo(DEFAULT_PLAYER_NAME_4);
-        assertThat(testGameInfo.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
     }
 
     @Test
@@ -164,6 +172,40 @@ class GameInfoResourceIT {
 
     @Test
     @Transactional
+    void checkgDatetimeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = gameInfoRepository.findAll().size();
+        // set the field null
+        gameInfo.setgDatetime(null);
+
+        // Create the GameInfo, which fails.
+
+        restGameInfoMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(gameInfo)))
+            .andExpect(status().isBadRequest());
+
+        List<GameInfo> gameInfoList = gameInfoRepository.findAll();
+        assertThat(gameInfoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkgDescIsRequired() throws Exception {
+        int databaseSizeBeforeTest = gameInfoRepository.findAll().size();
+        // set the field null
+        gameInfo.setgDesc(null);
+
+        // Create the GameInfo, which fails.
+
+        restGameInfoMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(gameInfo)))
+            .andExpect(status().isBadRequest());
+
+        List<GameInfo> gameInfoList = gameInfoRepository.findAll();
+        assertThat(gameInfoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllGameInfos() throws Exception {
         // Initialize the database
         gameInfoRepository.saveAndFlush(gameInfo);
@@ -174,13 +216,12 @@ class GameInfoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(gameInfo.getId().intValue())))
-            .andExpect(jsonPath("$.[*].gDatetime").value(hasItem(DEFAULT_G_DATETIME.toString())))
+            .andExpect(jsonPath("$.[*].gDatetime").value(hasItem(sameInstant(DEFAULT_G_DATETIME))))
             .andExpect(jsonPath("$.[*].gDesc").value(hasItem(DEFAULT_G_DESC)))
             .andExpect(jsonPath("$.[*].playerName1").value(hasItem(DEFAULT_PLAYER_NAME_1)))
             .andExpect(jsonPath("$.[*].playerName2").value(hasItem(DEFAULT_PLAYER_NAME_2)))
             .andExpect(jsonPath("$.[*].playerName3").value(hasItem(DEFAULT_PLAYER_NAME_3)))
-            .andExpect(jsonPath("$.[*].playerName4").value(hasItem(DEFAULT_PLAYER_NAME_4)))
-            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)));
+            .andExpect(jsonPath("$.[*].playerName4").value(hasItem(DEFAULT_PLAYER_NAME_4)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -212,13 +253,12 @@ class GameInfoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(gameInfo.getId().intValue()))
-            .andExpect(jsonPath("$.gDatetime").value(DEFAULT_G_DATETIME.toString()))
+            .andExpect(jsonPath("$.gDatetime").value(sameInstant(DEFAULT_G_DATETIME)))
             .andExpect(jsonPath("$.gDesc").value(DEFAULT_G_DESC))
             .andExpect(jsonPath("$.playerName1").value(DEFAULT_PLAYER_NAME_1))
             .andExpect(jsonPath("$.playerName2").value(DEFAULT_PLAYER_NAME_2))
             .andExpect(jsonPath("$.playerName3").value(DEFAULT_PLAYER_NAME_3))
-            .andExpect(jsonPath("$.playerName4").value(DEFAULT_PLAYER_NAME_4))
-            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY));
+            .andExpect(jsonPath("$.playerName4").value(DEFAULT_PLAYER_NAME_4));
     }
 
     @Test
@@ -246,8 +286,7 @@ class GameInfoResourceIT {
             .playerName1(UPDATED_PLAYER_NAME_1)
             .playerName2(UPDATED_PLAYER_NAME_2)
             .playerName3(UPDATED_PLAYER_NAME_3)
-            .playerName4(UPDATED_PLAYER_NAME_4)
-            .createdBy(UPDATED_CREATED_BY);
+            .playerName4(UPDATED_PLAYER_NAME_4);
 
         restGameInfoMockMvc
             .perform(
@@ -267,7 +306,6 @@ class GameInfoResourceIT {
         assertThat(testGameInfo.getPlayerName2()).isEqualTo(UPDATED_PLAYER_NAME_2);
         assertThat(testGameInfo.getPlayerName3()).isEqualTo(UPDATED_PLAYER_NAME_3);
         assertThat(testGameInfo.getPlayerName4()).isEqualTo(UPDATED_PLAYER_NAME_4);
-        assertThat(testGameInfo.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
     }
 
     @Test
@@ -343,8 +381,7 @@ class GameInfoResourceIT {
             .gDesc(UPDATED_G_DESC)
             .playerName2(UPDATED_PLAYER_NAME_2)
             .playerName3(UPDATED_PLAYER_NAME_3)
-            .playerName4(UPDATED_PLAYER_NAME_4)
-            .createdBy(UPDATED_CREATED_BY);
+            .playerName4(UPDATED_PLAYER_NAME_4);
 
         restGameInfoMockMvc
             .perform(
@@ -364,7 +401,6 @@ class GameInfoResourceIT {
         assertThat(testGameInfo.getPlayerName2()).isEqualTo(UPDATED_PLAYER_NAME_2);
         assertThat(testGameInfo.getPlayerName3()).isEqualTo(UPDATED_PLAYER_NAME_3);
         assertThat(testGameInfo.getPlayerName4()).isEqualTo(UPDATED_PLAYER_NAME_4);
-        assertThat(testGameInfo.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
     }
 
     @Test
@@ -385,8 +421,7 @@ class GameInfoResourceIT {
             .playerName1(UPDATED_PLAYER_NAME_1)
             .playerName2(UPDATED_PLAYER_NAME_2)
             .playerName3(UPDATED_PLAYER_NAME_3)
-            .playerName4(UPDATED_PLAYER_NAME_4)
-            .createdBy(UPDATED_CREATED_BY);
+            .playerName4(UPDATED_PLAYER_NAME_4);
 
         restGameInfoMockMvc
             .perform(
@@ -406,7 +441,6 @@ class GameInfoResourceIT {
         assertThat(testGameInfo.getPlayerName2()).isEqualTo(UPDATED_PLAYER_NAME_2);
         assertThat(testGameInfo.getPlayerName3()).isEqualTo(UPDATED_PLAYER_NAME_3);
         assertThat(testGameInfo.getPlayerName4()).isEqualTo(UPDATED_PLAYER_NAME_4);
-        assertThat(testGameInfo.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
     }
 
     @Test

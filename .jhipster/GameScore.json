@@ -7,36 +7,50 @@
   "fields": [
     {
       "fieldName": "playerScore1",
-      "fieldType": "Long"
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "3",
+      "fieldValidateRulesMin": "2"
     },
     {
       "fieldName": "playerScore2",
-      "fieldType": "Long"
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "3",
+      "fieldValidateRulesMin": "2"
     },
     {
       "fieldName": "playerScore3",
-      "fieldType": "Long"
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "3",
+      "fieldValidateRulesMin": "2"
     },
     {
       "fieldName": "playerScore4",
-      "fieldType": "Long"
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "3",
+      "fieldValidateRulesMin": "2"
     },
     {
       "fieldName": "createdDate",
-      "fieldType": "Instant"
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
     }
   ],
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "name": "GameScore",
-  "pagination": "pagination",
+  "pagination": "infinite-scroll",
   "readOnly": false,
   "relationships": [
     {
       "otherEntityField": "login",
       "otherEntityName": "user",
       "relationshipName": "user",
-      "relationshipType": "many-to-one"
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
       "otherEntityName": "gameInfo",

@@ -37,7 +37,6 @@ type GameInfoFormGroupContent = {
   playerName2: FormControl<GameInfoFormRawValue['playerName2']>;
   playerName3: FormControl<GameInfoFormRawValue['playerName3']>;
   playerName4: FormControl<GameInfoFormRawValue['playerName4']>;
-  createdBy: FormControl<GameInfoFormRawValue['createdBy']>;
   user: FormControl<GameInfoFormRawValue['user']>;
 };
 
@@ -58,14 +57,19 @@ export class GameInfoFormService {
           validators: [Validators.required],
         }
       ),
-      gDatetime: new FormControl(gameInfoRawValue.gDatetime),
-      gDesc: new FormControl(gameInfoRawValue.gDesc),
+      gDatetime: new FormControl(gameInfoRawValue.gDatetime, {
+        validators: [Validators.required],
+      }),
+      gDesc: new FormControl(gameInfoRawValue.gDesc, {
+        validators: [Validators.required, Validators.minLength(3)],
+      }),
       playerName1: new FormControl(gameInfoRawValue.playerName1),
       playerName2: new FormControl(gameInfoRawValue.playerName2),
       playerName3: new FormControl(gameInfoRawValue.playerName3),
       playerName4: new FormControl(gameInfoRawValue.playerName4),
-      createdBy: new FormControl(gameInfoRawValue.createdBy),
-      user: new FormControl(gameInfoRawValue.user),
+      user: new FormControl(gameInfoRawValue.user, {
+        validators: [Validators.required],
+      }),
     });
   }
 

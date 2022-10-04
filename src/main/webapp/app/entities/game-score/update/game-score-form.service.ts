@@ -57,12 +57,24 @@ export class GameScoreFormService {
           validators: [Validators.required],
         }
       ),
-      playerScore1: new FormControl(gameScoreRawValue.playerScore1),
-      playerScore2: new FormControl(gameScoreRawValue.playerScore2),
-      playerScore3: new FormControl(gameScoreRawValue.playerScore3),
-      playerScore4: new FormControl(gameScoreRawValue.playerScore4),
-      createdDate: new FormControl(gameScoreRawValue.createdDate),
-      user: new FormControl(gameScoreRawValue.user),
+      playerScore1: new FormControl(gameScoreRawValue.playerScore1, {
+        validators: [Validators.min(2), Validators.max(3)],
+      }),
+      playerScore2: new FormControl(gameScoreRawValue.playerScore2, {
+        validators: [Validators.min(2), Validators.max(3)],
+      }),
+      playerScore3: new FormControl(gameScoreRawValue.playerScore3, {
+        validators: [Validators.min(2), Validators.max(3)],
+      }),
+      playerScore4: new FormControl(gameScoreRawValue.playerScore4, {
+        validators: [Validators.min(2), Validators.max(3)],
+      }),
+      createdDate: new FormControl(gameScoreRawValue.createdDate, {
+        validators: [Validators.required],
+      }),
+      user: new FormControl(gameScoreRawValue.user, {
+        validators: [Validators.required],
+      }),
       gameInfo: new FormControl(gameScoreRawValue.gameInfo),
     });
   }

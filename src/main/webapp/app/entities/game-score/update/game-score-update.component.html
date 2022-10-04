@@ -23,6 +23,33 @@
             data-cy="playerScore1"
             formControlName="playerScore1"
           />
+          <div
+            *ngIf="editForm.get('playerScore1')!.invalid && (editForm.get('playerScore1')!.dirty || editForm.get('playerScore1')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('playerScore1')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 2 }"
+            >
+              This field should be at least 2.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('playerScore1')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 3 }"
+            >
+              This field cannot be more than 3.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('playerScore1')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
         </div>
 
         <div class="row mb-3">
@@ -35,6 +62,33 @@
             data-cy="playerScore2"
             formControlName="playerScore2"
           />
+          <div
+            *ngIf="editForm.get('playerScore2')!.invalid && (editForm.get('playerScore2')!.dirty || editForm.get('playerScore2')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('playerScore2')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 2 }"
+            >
+              This field should be at least 2.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('playerScore2')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 3 }"
+            >
+              This field cannot be more than 3.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('playerScore2')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
         </div>
 
         <div class="row mb-3">
@@ -47,6 +101,33 @@
             data-cy="playerScore3"
             formControlName="playerScore3"
           />
+          <div
+            *ngIf="editForm.get('playerScore3')!.invalid && (editForm.get('playerScore3')!.dirty || editForm.get('playerScore3')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('playerScore3')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 2 }"
+            >
+              This field should be at least 2.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('playerScore3')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 3 }"
+            >
+              This field cannot be more than 3.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('playerScore3')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
         </div>
 
         <div class="row mb-3">
@@ -59,6 +140,33 @@
             data-cy="playerScore4"
             formControlName="playerScore4"
           />
+          <div
+            *ngIf="editForm.get('playerScore4')!.invalid && (editForm.get('playerScore4')!.dirty || editForm.get('playerScore4')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('playerScore4')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 2 }"
+            >
+              This field should be at least 2.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('playerScore4')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 3 }"
+            >
+              This field cannot be more than 3.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('playerScore4')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
         </div>
 
         <div class="row mb-3">
@@ -74,14 +182,35 @@
               placeholder="YYYY-MM-DD HH:mm"
             />
           </div>
+          <div *ngIf="editForm.get('createdDate')!.invalid && (editForm.get('createdDate')!.dirty || editForm.get('createdDate')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('createdDate')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('createdDate')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
+            >
+              This field should be a date and time.
+            </small>
+          </div>
         </div>
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="binhSapXamApp.gameScore.user" for="field_user">User</label>
           <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
-            <option [ngValue]="null"></option>
+            <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
             <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.login }}</option>
           </select>
+        </div>
+        <div *ngIf="editForm.get(['user'])!.invalid && (editForm.get(['user'])!.dirty || editForm.get(['user'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['user'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
         </div>
 
         <div class="row mb-3">

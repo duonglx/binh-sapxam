@@ -9,7 +9,6 @@ export interface IGameInfo {
   playerName2?: string | null;
   playerName3?: string | null;
   playerName4?: string | null;
-  createdBy?: string | null;
   user?: Pick<IUser, 'id' | 'login'> | null;
 }
 

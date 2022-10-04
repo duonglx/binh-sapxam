@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,7 +54,7 @@ public class GameScoreResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/game-scores")
-    public ResponseEntity<GameScore> createGameScore(@RequestBody GameScore gameScore) throws URISyntaxException {
+    public ResponseEntity<GameScore> createGameScore(@Valid @RequestBody GameScore gameScore) throws URISyntaxException {
         log.debug("REST request to save GameScore : {}", gameScore);
         if (gameScore.getId() != null) {
             throw new BadRequestAlertException("A new gameScore cannot already have an ID", ENTITY_NAME, "idexists");
@@ -77,7 +79,7 @@ public class GameScoreResource {
     @PutMapping("/game-scores/{id}")
     public ResponseEntity<GameScore> updateGameScore(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody GameScore gameScore
+        @Valid @RequestBody GameScore gameScore
     ) throws URISyntaxException {
         log.debug("REST request to update GameScore : {}, {}", id, gameScore);
         if (gameScore.getId() == null) {
@@ -112,7 +114,7 @@ public class GameScoreResource {
     @PatchMapping(value = "/game-scores/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<GameScore> partialUpdateGameScore(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody GameScore gameScore
+        @NotNull @RequestBody GameScore gameScore
     ) throws URISyntaxException {
         log.debug("REST request to partial update GameScore partially : {}, {}", id, gameScore);
         if (gameScore.getId() == null) {

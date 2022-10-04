@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,7 +48,7 @@ public class GameInfoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/game-infos")
-    public ResponseEntity<GameInfo> createGameInfo(@RequestBody GameInfo gameInfo) throws URISyntaxException {
+    public ResponseEntity<GameInfo> createGameInfo(@Valid @RequestBody GameInfo gameInfo) throws URISyntaxException {
         log.debug("REST request to save GameInfo : {}", gameInfo);
         if (gameInfo.getId() != null) {
             throw new BadRequestAlertException("A new gameInfo cannot already have an ID", ENTITY_NAME, "idexists");
@@ -71,7 +73,7 @@ public class GameInfoResource {
     @PutMapping("/game-infos/{id}")
     public ResponseEntity<GameInfo> updateGameInfo(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody GameInfo gameInfo
+        @Valid @RequestBody GameInfo gameInfo
     ) throws URISyntaxException {
         log.debug("REST request to update GameInfo : {}, {}", id, gameInfo);
         if (gameInfo.getId() == null) {
@@ -106,7 +108,7 @@ public class GameInfoResource {
     @PatchMapping(value = "/game-infos/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<GameInfo> partialUpdateGameInfo(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody GameInfo gameInfo
+        @NotNull @RequestBody GameInfo gameInfo
     ) throws URISyntaxException {
         log.debug("REST request to partial update GameInfo partially : {}, {}", id, gameInfo);
         if (gameInfo.getId() == null) {
@@ -140,9 +142,6 @@ public class GameInfoResource {
                 }
                 if (gameInfo.getPlayerName4() != null) {
                     existingGameInfo.setPlayerName4(gameInfo.getPlayerName4());
-                }
-                if (gameInfo.getCreatedBy() != null) {
-                    existingGameInfo.setCreatedBy(gameInfo.getCreatedBy());
                 }
 
                 return existingGameInfo;

@@ -2,8 +2,9 @@ package com.duonglx.binhsxapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -24,22 +25,32 @@ public class GameScore implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Min(value = 2)
+    @Max(value = 3)
     @Column(name = "player_score_1")
-    private Long playerScore1;
+    private Integer playerScore1;
 
+    @Min(value = 2)
+    @Max(value = 3)
     @Column(name = "player_score_2")
-    private Long playerScore2;
+    private Integer playerScore2;
 
+    @Min(value = 2)
+    @Max(value = 3)
     @Column(name = "player_score_3")
-    private Long playerScore3;
+    private Integer playerScore3;
 
+    @Min(value = 2)
+    @Max(value = 3)
     @Column(name = "player_score_4")
-    private Long playerScore4;
+    private Integer playerScore4;
 
-    @Column(name = "created_date")
-    private Instant createdDate;
+    @NotNull
+    @Column(name = "created_date", nullable = false)
+    private ZonedDateTime createdDate;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private User user;
 
     @ManyToOne
@@ -61,68 +72,68 @@ public class GameScore implements Serializable {
         this.id = id;
     }
 
-    public Long getPlayerScore1() {
+    public Integer getPlayerScore1() {
         return this.playerScore1;
     }
 
-    public GameScore playerScore1(Long playerScore1) {
+    public GameScore playerScore1(Integer playerScore1) {
         this.setPlayerScore1(playerScore1);
         return this;
     }
 
-    public void setPlayerScore1(Long playerScore1) {
+    public void setPlayerScore1(Integer playerScore1) {
         this.playerScore1 = playerScore1;
     }
 
-    public Long getPlayerScore2() {
+    public Integer getPlayerScore2() {
         return this.playerScore2;
     }
 
-    public GameScore playerScore2(Long playerScore2) {
+    public GameScore playerScore2(Integer playerScore2) {
         this.setPlayerScore2(playerScore2);
         return this;
     }
 
-    public void setPlayerScore2(Long playerScore2) {
+    public void setPlayerScore2(Integer playerScore2) {
         this.playerScore2 = playerScore2;
     }
 
-    public Long getPlayerScore3() {
+    public Integer getPlayerScore3() {
         return this.playerScore3;
     }
 
-    public GameScore playerScore3(Long playerScore3) {
+    public GameScore playerScore3(Integer playerScore3) {
         this.setPlayerScore3(playerScore3);
         return this;
     }
 
-    public void setPlayerScore3(Long playerScore3) {
+    public void setPlayerScore3(Integer playerScore3) {
         this.playerScore3 = playerScore3;
     }
 
-    public Long getPlayerScore4() {
+    public Integer getPlayerScore4() {
         return this.playerScore4;
     }
 
-    public GameScore playerScore4(Long playerScore4) {
+    public GameScore playerScore4(Integer playerScore4) {
         this.setPlayerScore4(playerScore4);
         return this;
     }
 
-    public void setPlayerScore4(Long playerScore4) {
+    public void setPlayerScore4(Integer playerScore4) {
         this.playerScore4 = playerScore4;
     }
 
-    public Instant getCreatedDate() {
+    public ZonedDateTime getCreatedDate() {
         return this.createdDate;
     }
 
-    public GameScore createdDate(Instant createdDate) {
+    public GameScore createdDate(ZonedDateTime createdDate) {
         this.setCreatedDate(createdDate);
         return this;
     }
 
-    public void setCreatedDate(Instant createdDate) {
+    public void setCreatedDate(ZonedDateTime createdDate) {
         this.createdDate = createdDate;
     }
 

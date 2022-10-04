@@ -1,5 +1,6 @@
 package com.duonglx.binhsxapp.web.rest;
 
+import static com.duonglx.binhsxapp.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
@@ -8,9 +9,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.duonglx.binhsxapp.IntegrationTest;
 import com.duonglx.binhsxapp.domain.GameScore;
+import com.duonglx.binhsxapp.domain.User;
 import com.duonglx.binhsxapp.repository.GameScoreRepository;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -40,20 +44,20 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class GameScoreResourceIT {
 
-    private static final Long DEFAULT_PLAYER_SCORE_1 = 1L;
-    private static final Long UPDATED_PLAYER_SCORE_1 = 2L;
+    private static final Integer DEFAULT_PLAYER_SCORE_1 = 2;
+    private static final Integer UPDATED_PLAYER_SCORE_1 = 3;
 
-    private static final Long DEFAULT_PLAYER_SCORE_2 = 1L;
-    private static final Long UPDATED_PLAYER_SCORE_2 = 2L;
+    private static final Integer DEFAULT_PLAYER_SCORE_2 = 2;
+    private static final Integer UPDATED_PLAYER_SCORE_2 = 3;
 
-    private static final Long DEFAULT_PLAYER_SCORE_3 = 1L;
-    private static final Long UPDATED_PLAYER_SCORE_3 = 2L;
+    private static final Integer DEFAULT_PLAYER_SCORE_3 = 2;
+    private static final Integer UPDATED_PLAYER_SCORE_3 = 3;
 
-    private static final Long DEFAULT_PLAYER_SCORE_4 = 1L;
-    private static final Long UPDATED_PLAYER_SCORE_4 = 2L;
+    private static final Integer DEFAULT_PLAYER_SCORE_4 = 2;
+    private static final Integer UPDATED_PLAYER_SCORE_4 = 3;
 
-    private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final ZonedDateTime DEFAULT_CREATED_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_CREATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     private static final String ENTITY_API_URL = "/api/game-scores";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -88,6 +92,11 @@ class GameScoreResourceIT {
             .playerScore3(DEFAULT_PLAYER_SCORE_3)
             .playerScore4(DEFAULT_PLAYER_SCORE_4)
             .createdDate(DEFAULT_CREATED_DATE);
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        gameScore.setUser(user);
         return gameScore;
     }
 
@@ -104,6 +113,11 @@ class GameScoreResourceIT {
             .playerScore3(UPDATED_PLAYER_SCORE_3)
             .playerScore4(UPDATED_PLAYER_SCORE_4)
             .createdDate(UPDATED_CREATED_DATE);
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        gameScore.setUser(user);
         return gameScore;
     }
 
@@ -152,6 +166,23 @@ class GameScoreResourceIT {
 
     @Test
     @Transactional
+    void checkCreatedDateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = gameScoreRepository.findAll().size();
+        // set the field null
+        gameScore.setCreatedDate(null);
+
+        // Create the GameScore, which fails.
+
+        restGameScoreMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(gameScore)))
+            .andExpect(status().isBadRequest());
+
+        List<GameScore> gameScoreList = gameScoreRepository.findAll();
+        assertThat(gameScoreList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllGameScores() throws Exception {
         // Initialize the database
         gameScoreRepository.saveAndFlush(gameScore);
@@ -162,11 +193,11 @@ class GameScoreResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(gameScore.getId().intValue())))
-            .andExpect(jsonPath("$.[*].playerScore1").value(hasItem(DEFAULT_PLAYER_SCORE_1.intValue())))
-            .andExpect(jsonPath("$.[*].playerScore2").value(hasItem(DEFAULT_PLAYER_SCORE_2.intValue())))
-            .andExpect(jsonPath("$.[*].playerScore3").value(hasItem(DEFAULT_PLAYER_SCORE_3.intValue())))
-            .andExpect(jsonPath("$.[*].playerScore4").value(hasItem(DEFAULT_PLAYER_SCORE_4.intValue())))
-            .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())));
+            .andExpect(jsonPath("$.[*].playerScore1").value(hasItem(DEFAULT_PLAYER_SCORE_1)))
+            .andExpect(jsonPath("$.[*].playerScore2").value(hasItem(DEFAULT_PLAYER_SCORE_2)))
+            .andExpect(jsonPath("$.[*].playerScore3").value(hasItem(DEFAULT_PLAYER_SCORE_3)))
+            .andExpect(jsonPath("$.[*].playerScore4").value(hasItem(DEFAULT_PLAYER_SCORE_4)))
+            .andExpect(jsonPath("$.[*].createdDate").value(hasItem(sameInstant(DEFAULT_CREATED_DATE))));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -198,11 +229,11 @@ class GameScoreResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(gameScore.getId().intValue()))
-            .andExpect(jsonPath("$.playerScore1").value(DEFAULT_PLAYER_SCORE_1.intValue()))
-            .andExpect(jsonPath("$.playerScore2").value(DEFAULT_PLAYER_SCORE_2.intValue()))
-            .andExpect(jsonPath("$.playerScore3").value(DEFAULT_PLAYER_SCORE_3.intValue()))
-            .andExpect(jsonPath("$.playerScore4").value(DEFAULT_PLAYER_SCORE_4.intValue()))
-            .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()));
+            .andExpect(jsonPath("$.playerScore1").value(DEFAULT_PLAYER_SCORE_1))
+            .andExpect(jsonPath("$.playerScore2").value(DEFAULT_PLAYER_SCORE_2))
+            .andExpect(jsonPath("$.playerScore3").value(DEFAULT_PLAYER_SCORE_3))
+            .andExpect(jsonPath("$.playerScore4").value(DEFAULT_PLAYER_SCORE_4))
+            .andExpect(jsonPath("$.createdDate").value(sameInstant(DEFAULT_CREATED_DATE)));
     }
 
     @Test
