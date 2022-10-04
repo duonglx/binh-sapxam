@@ -2,20 +2,20 @@ entity GameInfo {
     gNo Long,
     gDatetime Instant,
     gDesc String,
-    player1 Long,
-    player2 Long,
-    player3 Long,
-    player4 Long,
+    player1 String,
+    player2 String,
+    player3 String,
+    player4 String,
     createdBy String,
     createdDate Instant
 }
 
 entity GameScore {
 	gNo Long,
-    player1 String,
-    player2 String,
-    player3 String,
-    player4 String,
+    playerScore1 Long,
+    playerScore2 Long,
+    playerScore3 Long,
+    playerScore4 Long,
     createdDate Instant
 }
 
