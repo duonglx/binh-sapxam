@@ -1,19 +1,18 @@
 entity GameInfo {    
-    gDatetime Instant,
-    gDesc String,
+    gDatetime ZonedDateTime required,
+    gDesc String required  minlength(3),
     playerName1 String,
     playerName2 String,
     playerName3 String,
     playerName4 String,
-    createdBy String
 }
 
 entity GameScore {	
-    playerScore1 Long,
-    playerScore2 Long,
-    playerScore3 Long,
-    playerScore4 Long,
-    createdDate Instant
+    playerScore1 Integer min(2) max(3),
+    playerScore2 Integer min(2) max(3),
+    playerScore3 Integer min(2) max(3),
+    playerScore4 Integer min(2) max(3),
+    createdDate ZonedDateTime required
 }
 
 relationship OneToMany {
@@ -21,9 +20,9 @@ relationship OneToMany {
 }
 
 relationship ManyToOne {
-  GameInfo{user(login)} to User
-  GameScore{user(login)} to User
+  GameInfo{user(login) required} to User
+  GameScore{user(login) required} to User
 }
 
-paginate GameScore with pagination
+paginate GameScore with infinite-scroll
     
