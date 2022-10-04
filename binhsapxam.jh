@@ -8,20 +8,21 @@ entity GameInfo {
 }
 
 entity GameScore {	
-    playerScore1 Integer min(2) max(3),
+    playerScore1 Integer min(-50) max(50),
     playerScore2 Integer min(2) max(3),
     playerScore3 Integer min(2) max(3),
     playerScore4 Integer min(2) max(3),
     createdDate ZonedDateTime required
 }
 
-relationship OneToMany {
-  GameInfo to GameScore
-}
+//relationship OneToMany {
+ // GameInfo{gameScore(gDesc)} to GameScore
+//}
 
 relationship ManyToOne {
   GameInfo{user(login) required} to User
   GameScore{user(login) required} to User
+  GameScore{gameInfo(gDesc)} to GameInfo
 }
 
 paginate GameScore with infinite-scroll
