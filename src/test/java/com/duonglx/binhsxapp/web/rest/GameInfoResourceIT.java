@@ -40,17 +40,17 @@ class GameInfoResourceIT {
     private static final String DEFAULT_G_DESC = "AAAAAAAAAA";
     private static final String UPDATED_G_DESC = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PLAYER_1 = "AAAAAAAAAA";
-    private static final String UPDATED_PLAYER_1 = "BBBBBBBBBB";
+    private static final Long DEFAULT_PLAYER_1 = 1L;
+    private static final Long UPDATED_PLAYER_1 = 2L;
 
-    private static final String DEFAULT_PLAYER_2 = "AAAAAAAAAA";
-    private static final String UPDATED_PLAYER_2 = "BBBBBBBBBB";
+    private static final Long DEFAULT_PLAYER_2 = 1L;
+    private static final Long UPDATED_PLAYER_2 = 2L;
 
-    private static final String DEFAULT_PLAYER_3 = "AAAAAAAAAA";
-    private static final String UPDATED_PLAYER_3 = "BBBBBBBBBB";
+    private static final Long DEFAULT_PLAYER_3 = 1L;
+    private static final Long UPDATED_PLAYER_3 = 2L;
 
-    private static final String DEFAULT_PLAYER_4 = "AAAAAAAAAA";
-    private static final String UPDATED_PLAYER_4 = "BBBBBBBBBB";
+    private static final Long DEFAULT_PLAYER_4 = 1L;
+    private static final Long UPDATED_PLAYER_4 = 2L;
 
     private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
     private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
@@ -177,10 +177,10 @@ class GameInfoResourceIT {
             .andExpect(jsonPath("$.[*].gNo").value(hasItem(DEFAULT_G_NO.intValue())))
             .andExpect(jsonPath("$.[*].gDatetime").value(hasItem(DEFAULT_G_DATETIME.toString())))
             .andExpect(jsonPath("$.[*].gDesc").value(hasItem(DEFAULT_G_DESC)))
-            .andExpect(jsonPath("$.[*].player1").value(hasItem(DEFAULT_PLAYER_1)))
-            .andExpect(jsonPath("$.[*].player2").value(hasItem(DEFAULT_PLAYER_2)))
-            .andExpect(jsonPath("$.[*].player3").value(hasItem(DEFAULT_PLAYER_3)))
-            .andExpect(jsonPath("$.[*].player4").value(hasItem(DEFAULT_PLAYER_4)))
+            .andExpect(jsonPath("$.[*].player1").value(hasItem(DEFAULT_PLAYER_1.intValue())))
+            .andExpect(jsonPath("$.[*].player2").value(hasItem(DEFAULT_PLAYER_2.intValue())))
+            .andExpect(jsonPath("$.[*].player3").value(hasItem(DEFAULT_PLAYER_3.intValue())))
+            .andExpect(jsonPath("$.[*].player4").value(hasItem(DEFAULT_PLAYER_4.intValue())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())));
     }
@@ -200,10 +200,10 @@ class GameInfoResourceIT {
             .andExpect(jsonPath("$.gNo").value(DEFAULT_G_NO.intValue()))
             .andExpect(jsonPath("$.gDatetime").value(DEFAULT_G_DATETIME.toString()))
             .andExpect(jsonPath("$.gDesc").value(DEFAULT_G_DESC))
-            .andExpect(jsonPath("$.player1").value(DEFAULT_PLAYER_1))
-            .andExpect(jsonPath("$.player2").value(DEFAULT_PLAYER_2))
-            .andExpect(jsonPath("$.player3").value(DEFAULT_PLAYER_3))
-            .andExpect(jsonPath("$.player4").value(DEFAULT_PLAYER_4))
+            .andExpect(jsonPath("$.player1").value(DEFAULT_PLAYER_1.intValue()))
+            .andExpect(jsonPath("$.player2").value(DEFAULT_PLAYER_2.intValue()))
+            .andExpect(jsonPath("$.player3").value(DEFAULT_PLAYER_3.intValue()))
+            .andExpect(jsonPath("$.player4").value(DEFAULT_PLAYER_4.intValue()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()));
     }
