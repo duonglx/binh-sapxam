@@ -40,17 +40,17 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "gameScore",
-      "otherEntityRelationshipName": "gameInfo",
-      "relationshipName": "gameScore",
-      "relationshipType": "one-to-many"
-    },
-    {
       "otherEntityField": "login",
       "otherEntityName": "user",
       "relationshipName": "user",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "gDesc",
+      "otherEntityName": "gameScore",
+      "relationshipName": "gameScore",
+      "relationshipType": "many-to-one"
     }
   ],
   "service": "no"

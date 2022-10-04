@@ -212,21 +212,6 @@
             This field is required.
           </small>
         </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="binhSapXamApp.gameScore.gameInfo" for="field_gameInfo">Game Info</label>
-          <select
-            class="form-control"
-            id="field_gameInfo"
-            data-cy="gameInfo"
-            name="gameInfo"
-            formControlName="gameInfo"
-            [compareWith]="compareGameInfo"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="gameInfoOption" *ngFor="let gameInfoOption of gameInfosSharedCollection">{{ gameInfoOption.id }}</option>
-          </select>
-        </div>
       </div>
 
       <div>

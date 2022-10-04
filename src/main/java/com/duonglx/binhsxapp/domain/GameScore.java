@@ -1,6 +1,5 @@
 package com.duonglx.binhsxapp.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import javax.persistence.*;
@@ -52,10 +51,6 @@ public class GameScore implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private User user;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "gameScores", "user" }, allowSetters = true)
-    private GameInfo gameInfo;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -147,19 +142,6 @@ public class GameScore implements Serializable {
 
     public GameScore user(User user) {
         this.setUser(user);
-        return this;
-    }
-
-    public GameInfo getGameInfo() {
-        return this.gameInfo;
-    }
-
-    public void setGameInfo(GameInfo gameInfo) {
-        this.gameInfo = gameInfo;
-    }
-
-    public GameScore gameInfo(GameInfo gameInfo) {
-        this.setGameInfo(gameInfo);
         return this;
     }
 

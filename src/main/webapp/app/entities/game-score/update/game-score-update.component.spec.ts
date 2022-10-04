@@ -12,8 +12,6 @@ import { IGameScore } from '../game-score.model';
 
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
-import { IGameInfo } from 'app/entities/game-info/game-info.model';
-import { GameInfoService } from 'app/entities/game-info/service/game-info.service';
 
 import { GameScoreUpdateComponent } from './game-score-update.component';
 
@@ -24,7 +22,6 @@ describe('GameScore Management Update Component', () => {
   let gameScoreFormService: GameScoreFormService;
   let gameScoreService: GameScoreService;
   let userService: UserService;
-  let gameInfoService: GameInfoService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -48,7 +45,6 @@ describe('GameScore Management Update Component', () => {
     gameScoreFormService = TestBed.inject(GameScoreFormService);
     gameScoreService = TestBed.inject(GameScoreService);
     userService = TestBed.inject(UserService);
-    gameInfoService = TestBed.inject(GameInfoService);
 
     comp = fixture.componentInstance;
   });
@@ -76,40 +72,15 @@ describe('GameScore Management Update Component', () => {
       expect(comp.usersSharedCollection).toEqual(expectedCollection);
     });
 
-    it('Should call GameInfo query and add missing value', () => {
-      const gameScore: IGameScore = { id: 456 };
-      const gameInfo: IGameInfo = { id: 47839 };
-      gameScore.gameInfo = gameInfo;
-
-      const gameInfoCollection: IGameInfo[] = [{ id: 3059 }];
-      jest.spyOn(gameInfoService, 'query').mockReturnValue(of(new HttpResponse({ body: gameInfoCollection })));
-      const additionalGameInfos = [gameInfo];
-      const expectedCollection: IGameInfo[] = [...additionalGameInfos, ...gameInfoCollection];
-      jest.spyOn(gameInfoService, 'addGameInfoToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ gameScore });
-      comp.ngOnInit();
-
-      expect(gameInfoService.query).toHaveBeenCalled();
-      expect(gameInfoService.addGameInfoToCollectionIfMissing).toHaveBeenCalledWith(
-        gameInfoCollection,
-        ...additionalGameInfos.map(expect.objectContaining)
-      );
-      expect(comp.gameInfosSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const gameScore: IGameScore = { id: 456 };
       const user: IUser = { id: 34435 };
       gameScore.user = user;
-      const gameInfo: IGameInfo = { id: 91211 };
-      gameScore.gameInfo = gameInfo;
 
       activatedRoute.data = of({ gameScore });
       comp.ngOnInit();
 
       expect(comp.usersSharedCollection).toContain(user);
-      expect(comp.gameInfosSharedCollection).toContain(gameInfo);
       expect(comp.gameScore).toEqual(gameScore);
     });
   });
@@ -190,16 +161,6 @@ describe('GameScore Management Update Component', () => {
         jest.spyOn(userService, 'compareUser');
         comp.compareUser(entity, entity2);
         expect(userService.compareUser).toHaveBeenCalledWith(entity, entity2);
-      });
-    });
-
-    describe('compareGameInfo', () => {
-      it('Should forward to gameInfoService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(gameInfoService, 'compareGameInfo');
-        comp.compareGameInfo(entity, entity2);
-        expect(gameInfoService.compareGameInfo).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

@@ -1,6 +1,5 @@
 import dayjs from 'dayjs/esm';
 import { IUser } from 'app/entities/user/user.model';
-import { IGameInfo } from 'app/entities/game-info/game-info.model';
 
 export interface IGameScore {
   id: number;
@@ -10,7 +9,6 @@ export interface IGameScore {
   playerScore4?: number | null;
   createdDate?: dayjs.Dayjs | null;
   user?: Pick<IUser, 'id' | 'login'> | null;
-  gameInfo?: Pick<IGameInfo, 'id'> | null;
 }
 
 export type NewGameScore = Omit<IGameScore, 'id'> & { id: null };

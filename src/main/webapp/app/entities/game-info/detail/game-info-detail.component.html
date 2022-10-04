@@ -42,6 +42,12 @@
         <dd>
           <span>{{ gameInfo.user?.login }}</span>
         </dd>
+        <dt><span jhiTranslate="binhSapXamApp.gameInfo.gameScore">Game Score</span></dt>
+        <dd>
+          <div *ngIf="gameInfo.gameScore">
+            <a [routerLink]="['/game-score', gameInfo.gameScore.id, 'view']">{{ gameInfo.gameScore.gDesc }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

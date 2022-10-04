@@ -30,14 +30,14 @@ public interface GameInfoRepository extends JpaRepository<GameInfo, Long> {
     }
 
     @Query(
-        value = "select distinct gameInfo from GameInfo gameInfo left join fetch gameInfo.user",
+        value = "select distinct gameInfo from GameInfo gameInfo left join fetch gameInfo.user left join fetch gameInfo.gameScore",
         countQuery = "select count(distinct gameInfo) from GameInfo gameInfo"
     )
     Page<GameInfo> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct gameInfo from GameInfo gameInfo left join fetch gameInfo.user")
+    @Query("select distinct gameInfo from GameInfo gameInfo left join fetch gameInfo.user left join fetch gameInfo.gameScore")
     List<GameInfo> findAllWithToOneRelationships();
 
-    @Query("select gameInfo from GameInfo gameInfo left join fetch gameInfo.user where gameInfo.id =:id")
+    @Query("select gameInfo from GameInfo gameInfo left join fetch gameInfo.user left join fetch gameInfo.gameScore where gameInfo.id =:id")
     Optional<GameInfo> findOneWithToOneRelationships(@Param("id") Long id);
 }

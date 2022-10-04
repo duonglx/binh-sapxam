@@ -37,7 +37,6 @@ type GameScoreFormGroupContent = {
   playerScore4: FormControl<GameScoreFormRawValue['playerScore4']>;
   createdDate: FormControl<GameScoreFormRawValue['createdDate']>;
   user: FormControl<GameScoreFormRawValue['user']>;
-  gameInfo: FormControl<GameScoreFormRawValue['gameInfo']>;
 };
 
 export type GameScoreFormGroup = FormGroup<GameScoreFormGroupContent>;
@@ -75,7 +74,6 @@ export class GameScoreFormService {
       user: new FormControl(gameScoreRawValue.user, {
         validators: [Validators.required],
       }),
-      gameInfo: new FormControl(gameScoreRawValue.gameInfo),
     });
   }
 

@@ -13,5 +13,11 @@
                                  constraintName="fk_game_info__user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="game_score_id"
+                                 baseTableName="game_info"
+                                 constraintName="fk_game_info__game_score_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="game_score"/>
     </changeSet>
 </databaseChangeLog>

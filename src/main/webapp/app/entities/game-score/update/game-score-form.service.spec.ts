@@ -26,7 +26,6 @@ describe('GameScore Form Service', () => {
             playerScore4: expect.any(Object),
             createdDate: expect.any(Object),
             user: expect.any(Object),
-            gameInfo: expect.any(Object),
           })
         );
       });
@@ -43,7 +42,6 @@ describe('GameScore Form Service', () => {
             playerScore4: expect.any(Object),
             createdDate: expect.any(Object),
             user: expect.any(Object),
-            gameInfo: expect.any(Object),
           })
         );
       });
