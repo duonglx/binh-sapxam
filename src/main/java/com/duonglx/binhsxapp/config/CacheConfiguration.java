@@ -48,6 +48,9 @@ public class CacheConfiguration {
             createCache(cm, com.duonglx.binhsxapp.domain.User.class.getName());
             createCache(cm, com.duonglx.binhsxapp.domain.Authority.class.getName());
             createCache(cm, com.duonglx.binhsxapp.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.duonglx.binhsxapp.domain.GameInfo.class.getName());
+            createCache(cm, com.duonglx.binhsxapp.domain.GameInfo.class.getName() + ".gameScores");
+            createCache(cm, com.duonglx.binhsxapp.domain.GameScore.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

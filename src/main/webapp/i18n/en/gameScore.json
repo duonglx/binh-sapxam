@@ -1,0 +1,30 @@
+{
+  "binhSapXamApp": {
+    "gameScore": {
+      "home": {
+        "title": "Game Scores",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Game Score",
+        "createOrEditLabel": "Create or edit a Game Score",
+        "notFound": "No Game Scores found"
+      },
+      "created": "A new Game Score is created with identifier {{ param }}",
+      "updated": "A Game Score is updated with identifier {{ param }}",
+      "deleted": "A Game Score is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Game Score {{ id }}?"
+      },
+      "detail": {
+        "title": "Game Score"
+      },
+      "id": "ID",
+      "gNo": "G No",
+      "player1": "Player 1",
+      "player2": "Player 2",
+      "player3": "Player 3",
+      "player4": "Player 4",
+      "createdDate": "Created Date",
+      "gameInfo": "Game Info"
+    }
+  }
+}

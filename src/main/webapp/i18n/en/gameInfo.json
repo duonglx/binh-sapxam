@@ -1,0 +1,33 @@
+{
+  "binhSapXamApp": {
+    "gameInfo": {
+      "home": {
+        "title": "Game Infos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Game Info",
+        "createOrEditLabel": "Create or edit a Game Info",
+        "notFound": "No Game Infos found"
+      },
+      "created": "A new Game Info is created with identifier {{ param }}",
+      "updated": "A Game Info is updated with identifier {{ param }}",
+      "deleted": "A Game Info is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Game Info {{ id }}?"
+      },
+      "detail": {
+        "title": "Game Info"
+      },
+      "id": "ID",
+      "gNo": "G No",
+      "gDatetime": "G Datetime",
+      "gDesc": "G Desc",
+      "player1": "Player 1",
+      "player2": "Player 2",
+      "player3": "Player 3",
+      "player4": "Player 4",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "gameScore": "Game Score"
+    }
+  }
+}

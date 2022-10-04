@@ -1,0 +1,59 @@
+{
+  "applications": "*",
+  "changelogDate": "20221004041043",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "game_info",
+  "fields": [
+    {
+      "fieldName": "gNo",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "gDatetime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "gDesc",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "player1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "player2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "player3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "player4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GameInfo",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "gameScore",
+      "otherEntityRelationshipName": "gameInfo",
+      "relationshipName": "gameScore",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

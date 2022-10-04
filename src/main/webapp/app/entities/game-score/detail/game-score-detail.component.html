@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="gameScore">
+      <h2 data-cy="gameScoreDetailsHeading"><span jhiTranslate="binhSapXamApp.gameScore.detail.title">Game Score</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ gameScore.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="binhSapXamApp.gameScore.gNo">G No</span></dt>
+        <dd>
+          <span>{{ gameScore.gNo }}</span>
+        </dd>
+        <dt><span jhiTranslate="binhSapXamApp.gameScore.player1">Player 1</span></dt>
+        <dd>
+          <span>{{ gameScore.player1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="binhSapXamApp.gameScore.player2">Player 2</span></dt>
+        <dd>
+          <span>{{ gameScore.player2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="binhSapXamApp.gameScore.player3">Player 3</span></dt>
+        <dd>
+          <span>{{ gameScore.player3 }}</span>
+        </dd>
+        <dt><span jhiTranslate="binhSapXamApp.gameScore.player4">Player 4</span></dt>
+        <dd>
+          <span>{{ gameScore.player4 }}</span>
+        </dd>
+        <dt><span jhiTranslate="binhSapXamApp.gameScore.createdDate">Created Date</span></dt>
+        <dd>
+          <span>{{ gameScore.createdDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="binhSapXamApp.gameScore.gameInfo">Game Info</span></dt>
+        <dd>
+          <div *ngIf="gameScore.gameInfo">
+            <a [routerLink]="['/game-info', gameScore.gameInfo.id, 'view']">{{ gameScore.gameInfo.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/game-score', gameScore.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
