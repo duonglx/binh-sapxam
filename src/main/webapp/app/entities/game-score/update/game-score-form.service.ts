@@ -32,10 +32,10 @@ type GameScoreFormDefaults = Pick<NewGameScore, 'id' | 'createdDate'>;
 type GameScoreFormGroupContent = {
   id: FormControl<GameScoreFormRawValue['id'] | NewGameScore['id']>;
   gNo: FormControl<GameScoreFormRawValue['gNo']>;
-  player1: FormControl<GameScoreFormRawValue['player1']>;
-  player2: FormControl<GameScoreFormRawValue['player2']>;
-  player3: FormControl<GameScoreFormRawValue['player3']>;
-  player4: FormControl<GameScoreFormRawValue['player4']>;
+  playerScore1: FormControl<GameScoreFormRawValue['playerScore1']>;
+  playerScore2: FormControl<GameScoreFormRawValue['playerScore2']>;
+  playerScore3: FormControl<GameScoreFormRawValue['playerScore3']>;
+  playerScore4: FormControl<GameScoreFormRawValue['playerScore4']>;
   createdDate: FormControl<GameScoreFormRawValue['createdDate']>;
   gameInfo: FormControl<GameScoreFormRawValue['gameInfo']>;
 };
@@ -58,10 +58,10 @@ export class GameScoreFormService {
         }
       ),
       gNo: new FormControl(gameScoreRawValue.gNo),
-      player1: new FormControl(gameScoreRawValue.player1),
-      player2: new FormControl(gameScoreRawValue.player2),
-      player3: new FormControl(gameScoreRawValue.player3),
-      player4: new FormControl(gameScoreRawValue.player4),
+      playerScore1: new FormControl(gameScoreRawValue.playerScore1),
+      playerScore2: new FormControl(gameScoreRawValue.playerScore2),
+      playerScore3: new FormControl(gameScoreRawValue.playerScore3),
+      playerScore4: new FormControl(gameScoreRawValue.playerScore4),
       createdDate: new FormControl(gameScoreRawValue.createdDate),
       gameInfo: new FormControl(gameScoreRawValue.gameInfo),
     });

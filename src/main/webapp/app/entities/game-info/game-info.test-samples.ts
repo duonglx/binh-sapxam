@@ -9,20 +9,20 @@ export const sampleWithRequiredData: IGameInfo = {
 export const sampleWithPartialData: IGameInfo = {
   id: 2272,
   gDesc: 'Awesome',
-  player2: 94397,
+  player2: 'boliviano Keys salmon',
 };
 
 export const sampleWithFullData: IGameInfo = {
-  id: 69324,
-  gNo: 10942,
-  gDatetime: dayjs('2022-10-03T09:40'),
-  gDesc: 'mesh Canada',
-  player1: 41957,
-  player2: 40494,
-  player3: 31239,
-  player4: 52485,
-  createdBy: 'Plastic',
-  createdDate: dayjs('2022-10-03T08:38'),
+  id: 97826,
+  gNo: 41957,
+  gDatetime: dayjs('2022-10-03T18:27'),
+  gDesc: 'Czech',
+  player1: 'parallelism',
+  player2: 'Practical demand-driven Fish',
+  player3: 'Buckinghamshire bus Gorgeous',
+  player4: 'Lempira Soap',
+  createdBy: 'Portugal RSS Avon',
+  createdDate: dayjs('2022-10-03T14:50'),
 };
 
 export const sampleWithNewData: NewGameInfo = {

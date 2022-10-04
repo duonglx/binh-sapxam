@@ -132,17 +132,17 @@ public class GameScoreResource {
                 if (gameScore.getgNo() != null) {
                     existingGameScore.setgNo(gameScore.getgNo());
                 }
-                if (gameScore.getPlayer1() != null) {
-                    existingGameScore.setPlayer1(gameScore.getPlayer1());
+                if (gameScore.getPlayerScore1() != null) {
+                    existingGameScore.setPlayerScore1(gameScore.getPlayerScore1());
                 }
-                if (gameScore.getPlayer2() != null) {
-                    existingGameScore.setPlayer2(gameScore.getPlayer2());
+                if (gameScore.getPlayerScore2() != null) {
+                    existingGameScore.setPlayerScore2(gameScore.getPlayerScore2());
                 }
-                if (gameScore.getPlayer3() != null) {
-                    existingGameScore.setPlayer3(gameScore.getPlayer3());
+                if (gameScore.getPlayerScore3() != null) {
+                    existingGameScore.setPlayerScore3(gameScore.getPlayerScore3());
                 }
-                if (gameScore.getPlayer4() != null) {
-                    existingGameScore.setPlayer4(gameScore.getPlayer4());
+                if (gameScore.getPlayerScore4() != null) {
+                    existingGameScore.setPlayerScore4(gameScore.getPlayerScore4());
                 }
                 if (gameScore.getCreatedDate() != null) {
                     existingGameScore.setCreatedDate(gameScore.getCreatedDate());

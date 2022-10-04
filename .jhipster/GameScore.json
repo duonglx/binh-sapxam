@@ -10,20 +10,20 @@
       "fieldType": "Long"
     },
     {
-      "fieldName": "player1",
-      "fieldType": "String"
+      "fieldName": "playerScore1",
+      "fieldType": "Long"
     },
     {
-      "fieldName": "player2",
-      "fieldType": "String"
+      "fieldName": "playerScore2",
+      "fieldType": "Long"
     },
     {
-      "fieldName": "player3",
-      "fieldType": "String"
+      "fieldName": "playerScore3",
+      "fieldType": "Long"
     },
     {
-      "fieldName": "player4",
-      "fieldType": "String"
+      "fieldName": "playerScore4",
+      "fieldType": "Long"
     },
     {
       "fieldName": "createdDate",
