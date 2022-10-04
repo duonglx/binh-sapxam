@@ -44,8 +44,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class GameScoreResourceIT {
 
-    private static final Integer DEFAULT_PLAYER_SCORE_1 = 2;
-    private static final Integer UPDATED_PLAYER_SCORE_1 = 3;
+    private static final Integer DEFAULT_PLAYER_SCORE_1 = -50;
+    private static final Integer UPDATED_PLAYER_SCORE_1 = -49;
 
     private static final Integer DEFAULT_PLAYER_SCORE_2 = 2;
     private static final Integer UPDATED_PLAYER_SCORE_2 = 3;

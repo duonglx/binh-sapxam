@@ -9,8 +9,8 @@
       "fieldName": "playerScore1",
       "fieldType": "Integer",
       "fieldValidateRules": ["min", "max"],
-      "fieldValidateRulesMax": "3",
-      "fieldValidateRulesMin": "2"
+      "fieldValidateRulesMax": "50",
+      "fieldValidateRulesMin": "-50"
     },
     {
       "fieldName": "playerScore2",
@@ -53,8 +53,8 @@
       "relationshipValidateRules": "required"
     },
     {
+      "otherEntityField": "gDesc",
       "otherEntityName": "gameInfo",
-      "otherEntityRelationshipName": "gameScore",
       "relationshipName": "gameInfo",
       "relationshipType": "many-to-one"
     }

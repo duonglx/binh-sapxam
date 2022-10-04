@@ -58,7 +58,7 @@ export class GameScoreFormService {
         }
       ),
       playerScore1: new FormControl(gameScoreRawValue.playerScore1, {
-        validators: [Validators.min(2), Validators.max(3)],
+        validators: [Validators.min(-50), Validators.max(50)],
       }),
       playerScore2: new FormControl(gameScoreRawValue.playerScore2, {
         validators: [Validators.min(2), Validators.max(3)],
