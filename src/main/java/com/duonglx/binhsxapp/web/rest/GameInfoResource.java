@@ -123,32 +123,26 @@ public class GameInfoResource {
         Optional<GameInfo> result = gameInfoRepository
             .findById(gameInfo.getId())
             .map(existingGameInfo -> {
-                if (gameInfo.getgNo() != null) {
-                    existingGameInfo.setgNo(gameInfo.getgNo());
-                }
                 if (gameInfo.getgDatetime() != null) {
                     existingGameInfo.setgDatetime(gameInfo.getgDatetime());
                 }
                 if (gameInfo.getgDesc() != null) {
                     existingGameInfo.setgDesc(gameInfo.getgDesc());
                 }
-                if (gameInfo.getPlayer1() != null) {
-                    existingGameInfo.setPlayer1(gameInfo.getPlayer1());
+                if (gameInfo.getPlayerName1() != null) {
+                    existingGameInfo.setPlayerName1(gameInfo.getPlayerName1());
                 }
-                if (gameInfo.getPlayer2() != null) {
-                    existingGameInfo.setPlayer2(gameInfo.getPlayer2());
+                if (gameInfo.getPlayerName2() != null) {
+                    existingGameInfo.setPlayerName2(gameInfo.getPlayerName2());
                 }
-                if (gameInfo.getPlayer3() != null) {
-                    existingGameInfo.setPlayer3(gameInfo.getPlayer3());
+                if (gameInfo.getPlayerName3() != null) {
+                    existingGameInfo.setPlayerName3(gameInfo.getPlayerName3());
                 }
-                if (gameInfo.getPlayer4() != null) {
-                    existingGameInfo.setPlayer4(gameInfo.getPlayer4());
+                if (gameInfo.getPlayerName4() != null) {
+                    existingGameInfo.setPlayerName4(gameInfo.getPlayerName4());
                 }
                 if (gameInfo.getCreatedBy() != null) {
                     existingGameInfo.setCreatedBy(gameInfo.getCreatedBy());
-                }
-                if (gameInfo.getCreatedDate() != null) {
-                    existingGameInfo.setCreatedDate(gameInfo.getCreatedDate());
                 }
 
                 return existingGameInfo;
@@ -164,12 +158,17 @@ public class GameInfoResource {
     /**
      * {@code GET  /game-infos} : get all the gameInfos.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of gameInfos in body.
      */
     @GetMapping("/game-infos")
-    public List<GameInfo> getAllGameInfos() {
+    public List<GameInfo> getAllGameInfos(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all GameInfos");
-        return gameInfoRepository.findAll();
+        if (eagerload) {
+            return gameInfoRepository.findAllWithEagerRelationships();
+        } else {
+            return gameInfoRepository.findAll();
+        }
     }
 
     /**
@@ -181,7 +180,7 @@ public class GameInfoResource {
     @GetMapping("/game-infos/{id}")
     public ResponseEntity<GameInfo> getGameInfo(@PathVariable Long id) {
         log.debug("REST request to get GameInfo : {}", id);
-        Optional<GameInfo> gameInfo = gameInfoRepository.findById(id);
+        Optional<GameInfo> gameInfo = gameInfoRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(gameInfo);
     }
 

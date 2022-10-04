@@ -7,22 +7,20 @@ export const sampleWithRequiredData: IGameScore = {
 };
 
 export const sampleWithPartialData: IGameScore = {
-  id: 36675,
-  gNo: 94043,
-  playerScore2: 32101,
-  playerScore3: 53350,
-  playerScore4: 81125,
-  createdDate: dayjs('2022-10-03T11:31'),
+  id: 77688,
+  playerScore1: 36675,
+  playerScore3: 94043,
+  playerScore4: 32101,
+  createdDate: dayjs('2022-10-03T15:22'),
 };
 
 export const sampleWithFullData: IGameScore = {
-  id: 97996,
-  gNo: 93812,
-  playerScore1: 14249,
-  playerScore2: 38527,
-  playerScore3: 807,
-  playerScore4: 81235,
-  createdDate: dayjs('2022-10-03T04:59'),
+  id: 81125,
+  playerScore1: 69372,
+  playerScore2: 97996,
+  playerScore3: 93812,
+  playerScore4: 14249,
+  createdDate: dayjs('2022-10-03T18:55'),
 };
 
 export const sampleWithNewData: NewGameScore = {

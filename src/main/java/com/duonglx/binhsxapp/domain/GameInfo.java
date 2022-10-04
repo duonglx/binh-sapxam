@@ -26,37 +26,34 @@ public class GameInfo implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "g_no")
-    private Long gNo;
-
     @Column(name = "g_datetime")
     private Instant gDatetime;
 
     @Column(name = "g_desc")
     private String gDesc;
 
-    @Column(name = "player_1")
-    private String player1;
+    @Column(name = "player_name_1")
+    private String playerName1;
 
-    @Column(name = "player_2")
-    private String player2;
+    @Column(name = "player_name_2")
+    private String playerName2;
 
-    @Column(name = "player_3")
-    private String player3;
+    @Column(name = "player_name_3")
+    private String playerName3;
 
-    @Column(name = "player_4")
-    private String player4;
+    @Column(name = "player_name_4")
+    private String playerName4;
 
     @Column(name = "created_by")
     private String createdBy;
 
-    @Column(name = "created_date")
-    private Instant createdDate;
-
     @OneToMany(mappedBy = "gameInfo")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "gameInfo" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "gameInfo" }, allowSetters = true)
     private Set<GameScore> gameScores = new HashSet<>();
+
+    @ManyToOne
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -71,19 +68,6 @@ public class GameInfo implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getgNo() {
-        return this.gNo;
-    }
-
-    public GameInfo gNo(Long gNo) {
-        this.setgNo(gNo);
-        return this;
-    }
-
-    public void setgNo(Long gNo) {
-        this.gNo = gNo;
     }
 
     public Instant getgDatetime() {
@@ -112,56 +96,56 @@ public class GameInfo implements Serializable {
         this.gDesc = gDesc;
     }
 
-    public String getPlayer1() {
-        return this.player1;
+    public String getPlayerName1() {
+        return this.playerName1;
     }
 
-    public GameInfo player1(String player1) {
-        this.setPlayer1(player1);
+    public GameInfo playerName1(String playerName1) {
+        this.setPlayerName1(playerName1);
         return this;
     }
 
-    public void setPlayer1(String player1) {
-        this.player1 = player1;
+    public void setPlayerName1(String playerName1) {
+        this.playerName1 = playerName1;
     }
 
-    public String getPlayer2() {
-        return this.player2;
+    public String getPlayerName2() {
+        return this.playerName2;
     }
 
-    public GameInfo player2(String player2) {
-        this.setPlayer2(player2);
+    public GameInfo playerName2(String playerName2) {
+        this.setPlayerName2(playerName2);
         return this;
     }
 
-    public void setPlayer2(String player2) {
-        this.player2 = player2;
+    public void setPlayerName2(String playerName2) {
+        this.playerName2 = playerName2;
     }
 
-    public String getPlayer3() {
-        return this.player3;
+    public String getPlayerName3() {
+        return this.playerName3;
     }
 
-    public GameInfo player3(String player3) {
-        this.setPlayer3(player3);
+    public GameInfo playerName3(String playerName3) {
+        this.setPlayerName3(playerName3);
         return this;
     }
 
-    public void setPlayer3(String player3) {
-        this.player3 = player3;
+    public void setPlayerName3(String playerName3) {
+        this.playerName3 = playerName3;
     }
 
-    public String getPlayer4() {
-        return this.player4;
+    public String getPlayerName4() {
+        return this.playerName4;
     }
 
-    public GameInfo player4(String player4) {
-        this.setPlayer4(player4);
+    public GameInfo playerName4(String playerName4) {
+        this.setPlayerName4(playerName4);
         return this;
     }
 
-    public void setPlayer4(String player4) {
-        this.player4 = player4;
+    public void setPlayerName4(String playerName4) {
+        this.playerName4 = playerName4;
     }
 
     public String getCreatedBy() {
@@ -175,19 +159,6 @@ public class GameInfo implements Serializable {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
-    }
-
-    public Instant getCreatedDate() {
-        return this.createdDate;
-    }
-
-    public GameInfo createdDate(Instant createdDate) {
-        this.setCreatedDate(createdDate);
-        return this;
-    }
-
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
     }
 
     public Set<GameScore> getGameScores() {
@@ -221,6 +192,19 @@ public class GameInfo implements Serializable {
         return this;
     }
 
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public GameInfo user(User user) {
+        this.setUser(user);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -245,15 +229,13 @@ public class GameInfo implements Serializable {
     public String toString() {
         return "GameInfo{" +
             "id=" + getId() +
-            ", gNo=" + getgNo() +
             ", gDatetime='" + getgDatetime() + "'" +
             ", gDesc='" + getgDesc() + "'" +
-            ", player1='" + getPlayer1() + "'" +
-            ", player2='" + getPlayer2() + "'" +
-            ", player3='" + getPlayer3() + "'" +
-            ", player4='" + getPlayer4() + "'" +
+            ", playerName1='" + getPlayerName1() + "'" +
+            ", playerName2='" + getPlayerName2() + "'" +
+            ", playerName3='" + getPlayerName3() + "'" +
+            ", playerName4='" + getPlayerName4() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
             "}";
     }
 }

@@ -11,9 +11,8 @@ import { IGameInfo, NewGameInfo } from '../game-info.model';
 
 export type PartialUpdateGameInfo = Partial<IGameInfo> & Pick<IGameInfo, 'id'>;
 
-type RestOf<T extends IGameInfo | NewGameInfo> = Omit<T, 'gDatetime' | 'createdDate'> & {
+type RestOf<T extends IGameInfo | NewGameInfo> = Omit<T, 'gDatetime'> & {
   gDatetime?: string | null;
-  createdDate?: string | null;
 };
 
 export type RestGameInfo = RestOf<IGameInfo>;
@@ -101,7 +100,6 @@ export class GameInfoService {
     return {
       ...gameInfo,
       gDatetime: gameInfo.gDatetime?.toJSON() ?? null,
-      createdDate: gameInfo.createdDate?.toJSON() ?? null,
     };
   }
 
@@ -109,7 +107,6 @@ export class GameInfoService {
     return {
       ...restGameInfo,
       gDatetime: restGameInfo.gDatetime ? dayjs(restGameInfo.gDatetime) : undefined,
-      createdDate: restGameInfo.createdDate ? dayjs(restGameInfo.createdDate) : undefined,
     };
   }
 

@@ -1,16 +1,16 @@
 import dayjs from 'dayjs/esm';
+import { IUser } from 'app/entities/user/user.model';
 
 export interface IGameInfo {
   id: number;
-  gNo?: number | null;
   gDatetime?: dayjs.Dayjs | null;
   gDesc?: string | null;
-  player1?: string | null;
-  player2?: string | null;
-  player3?: string | null;
-  player4?: string | null;
+  playerName1?: string | null;
+  playerName2?: string | null;
+  playerName3?: string | null;
+  playerName4?: string | null;
   createdBy?: string | null;
-  createdDate?: dayjs.Dayjs | null;
+  user?: Pick<IUser, 'id' | 'login'> | null;
 }
 
 export type NewGameInfo = Omit<IGameInfo, 'id'> & { id: null };

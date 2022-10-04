@@ -2,6 +2,7 @@ package com.duonglx.binhsxapp.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -10,14 +11,21 @@ import com.duonglx.binhsxapp.domain.GameScore;
 import com.duonglx.binhsxapp.repository.GameScoreRepository;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,12 +35,10 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link GameScoreResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class GameScoreResourceIT {
-
-    private static final Long DEFAULT_G_NO = 1L;
-    private static final Long UPDATED_G_NO = 2L;
 
     private static final Long DEFAULT_PLAYER_SCORE_1 = 1L;
     private static final Long UPDATED_PLAYER_SCORE_1 = 2L;
@@ -58,6 +64,9 @@ class GameScoreResourceIT {
     @Autowired
     private GameScoreRepository gameScoreRepository;
 
+    @Mock
+    private GameScoreRepository gameScoreRepositoryMock;
+
     @Autowired
     private EntityManager em;
 
@@ -74,7 +83,6 @@ class GameScoreResourceIT {
      */
     public static GameScore createEntity(EntityManager em) {
         GameScore gameScore = new GameScore()
-            .gNo(DEFAULT_G_NO)
             .playerScore1(DEFAULT_PLAYER_SCORE_1)
             .playerScore2(DEFAULT_PLAYER_SCORE_2)
             .playerScore3(DEFAULT_PLAYER_SCORE_3)
@@ -91,7 +99,6 @@ class GameScoreResourceIT {
      */
     public static GameScore createUpdatedEntity(EntityManager em) {
         GameScore gameScore = new GameScore()
-            .gNo(UPDATED_G_NO)
             .playerScore1(UPDATED_PLAYER_SCORE_1)
             .playerScore2(UPDATED_PLAYER_SCORE_2)
             .playerScore3(UPDATED_PLAYER_SCORE_3)
@@ -118,7 +125,6 @@ class GameScoreResourceIT {
         List<GameScore> gameScoreList = gameScoreRepository.findAll();
         assertThat(gameScoreList).hasSize(databaseSizeBeforeCreate + 1);
         GameScore testGameScore = gameScoreList.get(gameScoreList.size() - 1);
-        assertThat(testGameScore.getgNo()).isEqualTo(DEFAULT_G_NO);
         assertThat(testGameScore.getPlayerScore1()).isEqualTo(DEFAULT_PLAYER_SCORE_1);
         assertThat(testGameScore.getPlayerScore2()).isEqualTo(DEFAULT_PLAYER_SCORE_2);
         assertThat(testGameScore.getPlayerScore3()).isEqualTo(DEFAULT_PLAYER_SCORE_3);
@@ -156,12 +162,28 @@ class GameScoreResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(gameScore.getId().intValue())))
-            .andExpect(jsonPath("$.[*].gNo").value(hasItem(DEFAULT_G_NO.intValue())))
             .andExpect(jsonPath("$.[*].playerScore1").value(hasItem(DEFAULT_PLAYER_SCORE_1.intValue())))
             .andExpect(jsonPath("$.[*].playerScore2").value(hasItem(DEFAULT_PLAYER_SCORE_2.intValue())))
             .andExpect(jsonPath("$.[*].playerScore3").value(hasItem(DEFAULT_PLAYER_SCORE_3.intValue())))
             .andExpect(jsonPath("$.[*].playerScore4").value(hasItem(DEFAULT_PLAYER_SCORE_4.intValue())))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllGameScoresWithEagerRelationshipsIsEnabled() throws Exception {
+        when(gameScoreRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restGameScoreMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(gameScoreRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllGameScoresWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(gameScoreRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restGameScoreMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(gameScoreRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -176,7 +198,6 @@ class GameScoreResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(gameScore.getId().intValue()))
-            .andExpect(jsonPath("$.gNo").value(DEFAULT_G_NO.intValue()))
             .andExpect(jsonPath("$.playerScore1").value(DEFAULT_PLAYER_SCORE_1.intValue()))
             .andExpect(jsonPath("$.playerScore2").value(DEFAULT_PLAYER_SCORE_2.intValue()))
             .andExpect(jsonPath("$.playerScore3").value(DEFAULT_PLAYER_SCORE_3.intValue()))
@@ -204,7 +225,6 @@ class GameScoreResourceIT {
         // Disconnect from session so that the updates on updatedGameScore are not directly saved in db
         em.detach(updatedGameScore);
         updatedGameScore
-            .gNo(UPDATED_G_NO)
             .playerScore1(UPDATED_PLAYER_SCORE_1)
             .playerScore2(UPDATED_PLAYER_SCORE_2)
             .playerScore3(UPDATED_PLAYER_SCORE_3)
@@ -223,7 +243,6 @@ class GameScoreResourceIT {
         List<GameScore> gameScoreList = gameScoreRepository.findAll();
         assertThat(gameScoreList).hasSize(databaseSizeBeforeUpdate);
         GameScore testGameScore = gameScoreList.get(gameScoreList.size() - 1);
-        assertThat(testGameScore.getgNo()).isEqualTo(UPDATED_G_NO);
         assertThat(testGameScore.getPlayerScore1()).isEqualTo(UPDATED_PLAYER_SCORE_1);
         assertThat(testGameScore.getPlayerScore2()).isEqualTo(UPDATED_PLAYER_SCORE_2);
         assertThat(testGameScore.getPlayerScore3()).isEqualTo(UPDATED_PLAYER_SCORE_3);
@@ -299,10 +318,7 @@ class GameScoreResourceIT {
         GameScore partialUpdatedGameScore = new GameScore();
         partialUpdatedGameScore.setId(gameScore.getId());
 
-        partialUpdatedGameScore
-            .playerScore1(UPDATED_PLAYER_SCORE_1)
-            .playerScore3(UPDATED_PLAYER_SCORE_3)
-            .playerScore4(UPDATED_PLAYER_SCORE_4);
+        partialUpdatedGameScore.playerScore2(UPDATED_PLAYER_SCORE_2).playerScore4(UPDATED_PLAYER_SCORE_4).createdDate(UPDATED_CREATED_DATE);
 
         restGameScoreMockMvc
             .perform(
@@ -316,12 +332,11 @@ class GameScoreResourceIT {
         List<GameScore> gameScoreList = gameScoreRepository.findAll();
         assertThat(gameScoreList).hasSize(databaseSizeBeforeUpdate);
         GameScore testGameScore = gameScoreList.get(gameScoreList.size() - 1);
-        assertThat(testGameScore.getgNo()).isEqualTo(DEFAULT_G_NO);
-        assertThat(testGameScore.getPlayerScore1()).isEqualTo(UPDATED_PLAYER_SCORE_1);
-        assertThat(testGameScore.getPlayerScore2()).isEqualTo(DEFAULT_PLAYER_SCORE_2);
-        assertThat(testGameScore.getPlayerScore3()).isEqualTo(UPDATED_PLAYER_SCORE_3);
+        assertThat(testGameScore.getPlayerScore1()).isEqualTo(DEFAULT_PLAYER_SCORE_1);
+        assertThat(testGameScore.getPlayerScore2()).isEqualTo(UPDATED_PLAYER_SCORE_2);
+        assertThat(testGameScore.getPlayerScore3()).isEqualTo(DEFAULT_PLAYER_SCORE_3);
         assertThat(testGameScore.getPlayerScore4()).isEqualTo(UPDATED_PLAYER_SCORE_4);
-        assertThat(testGameScore.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
+        assertThat(testGameScore.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
     }
 
     @Test
@@ -337,7 +352,6 @@ class GameScoreResourceIT {
         partialUpdatedGameScore.setId(gameScore.getId());
 
         partialUpdatedGameScore
-            .gNo(UPDATED_G_NO)
             .playerScore1(UPDATED_PLAYER_SCORE_1)
             .playerScore2(UPDATED_PLAYER_SCORE_2)
             .playerScore3(UPDATED_PLAYER_SCORE_3)
@@ -356,7 +370,6 @@ class GameScoreResourceIT {
         List<GameScore> gameScoreList = gameScoreRepository.findAll();
         assertThat(gameScoreList).hasSize(databaseSizeBeforeUpdate);
         GameScore testGameScore = gameScoreList.get(gameScoreList.size() - 1);
-        assertThat(testGameScore.getgNo()).isEqualTo(UPDATED_G_NO);
         assertThat(testGameScore.getPlayerScore1()).isEqualTo(UPDATED_PLAYER_SCORE_1);
         assertThat(testGameScore.getPlayerScore2()).isEqualTo(UPDATED_PLAYER_SCORE_2);
         assertThat(testGameScore.getPlayerScore3()).isEqualTo(UPDATED_PLAYER_SCORE_3);

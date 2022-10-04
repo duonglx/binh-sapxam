@@ -18,16 +18,15 @@
         "title": "Game Info"
       },
       "id": "ID",
-      "gNo": "G No",
       "gDatetime": "G Datetime",
       "gDesc": "G Desc",
-      "player1": "Player 1",
-      "player2": "Player 2",
-      "player3": "Player 3",
-      "player4": "Player 4",
+      "playerName1": "Player Name 1",
+      "playerName2": "Player Name 2",
+      "playerName3": "Player Name 3",
+      "playerName4": "Player Name 4",
       "createdBy": "Created By",
-      "createdDate": "Created Date",
-      "gameScore": "Game Score"
+      "gameScore": "Game Score",
+      "user": "User"
     }
   }
 }

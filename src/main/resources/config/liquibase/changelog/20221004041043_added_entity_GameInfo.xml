@@ -14,37 +14,33 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="g_no" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <column name="g_datetime" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
             <column name="g_desc" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="player_1" type="varchar(255)">
+            <column name="player_name_1" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="player_2" type="varchar(255)">
+            <column name="player_name_2" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="player_3" type="varchar(255)">
+            <column name="player_name_3" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="player_4" type="varchar(255)">
+            <column name="player_name_4" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="created_by" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="created_date" type="${datetimeType}">
+            <column name="user_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="game_info" columnName="g_datetime" columnDataType="${datetimeType}"/>
-        <dropDefaultValue tableName="game_info" columnName="created_date" columnDataType="${datetimeType}"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -64,15 +60,13 @@
                   tableName="game_info"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="g_no" type="numeric"/>
             <column name="g_datetime" type="date"/>
             <column name="g_desc" type="string"/>
-            <column name="player_1" type="string"/>
-            <column name="player_2" type="string"/>
-            <column name="player_3" type="string"/>
-            <column name="player_4" type="string"/>
+            <column name="player_name_1" type="string"/>
+            <column name="player_name_2" type="string"/>
+            <column name="player_name_3" type="string"/>
+            <column name="player_name_4" type="string"/>
             <column name="created_by" type="string"/>
-            <column name="created_date" type="date"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

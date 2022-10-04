@@ -20,12 +20,12 @@ describe('GameScore Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            gNo: expect.any(Object),
             playerScore1: expect.any(Object),
             playerScore2: expect.any(Object),
             playerScore3: expect.any(Object),
             playerScore4: expect.any(Object),
             createdDate: expect.any(Object),
+            user: expect.any(Object),
             gameInfo: expect.any(Object),
           })
         );
@@ -37,12 +37,12 @@ describe('GameScore Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            gNo: expect.any(Object),
             playerScore1: expect.any(Object),
             playerScore2: expect.any(Object),
             playerScore3: expect.any(Object),
             playerScore4: expect.any(Object),
             createdDate: expect.any(Object),
+            user: expect.any(Object),
             gameInfo: expect.any(Object),
           })
         );

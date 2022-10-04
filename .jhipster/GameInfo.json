@@ -6,10 +6,6 @@
   "entityTableName": "game_info",
   "fields": [
     {
-      "fieldName": "gNo",
-      "fieldType": "Long"
-    },
-    {
       "fieldName": "gDatetime",
       "fieldType": "Instant"
     },
@@ -18,28 +14,24 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "player1",
+      "fieldName": "playerName1",
       "fieldType": "String"
     },
     {
-      "fieldName": "player2",
+      "fieldName": "playerName2",
       "fieldType": "String"
     },
     {
-      "fieldName": "player3",
+      "fieldName": "playerName3",
       "fieldType": "String"
     },
     {
-      "fieldName": "player4",
+      "fieldName": "playerName4",
       "fieldType": "String"
     },
     {
       "fieldName": "createdBy",
       "fieldType": "String"
-    },
-    {
-      "fieldName": "createdDate",
-      "fieldType": "Instant"
     }
   ],
   "fluentMethods": true,
@@ -53,6 +45,12 @@
       "otherEntityRelationshipName": "gameInfo",
       "relationshipName": "gameScore",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
     }
   ],
   "service": "no"

@@ -24,9 +24,6 @@ public class GameScore implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "g_no")
-    private Long gNo;
-
     @Column(name = "player_score_1")
     private Long playerScore1;
 
@@ -43,7 +40,10 @@ public class GameScore implements Serializable {
     private Instant createdDate;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "gameScores" }, allowSetters = true)
+    private User user;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "gameScores", "user" }, allowSetters = true)
     private GameInfo gameInfo;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -59,19 +59,6 @@ public class GameScore implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getgNo() {
-        return this.gNo;
-    }
-
-    public GameScore gNo(Long gNo) {
-        this.setgNo(gNo);
-        return this;
-    }
-
-    public void setgNo(Long gNo) {
-        this.gNo = gNo;
     }
 
     public Long getPlayerScore1() {
@@ -139,6 +126,19 @@ public class GameScore implements Serializable {
         this.createdDate = createdDate;
     }
 
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public GameScore user(User user) {
+        this.setUser(user);
+        return this;
+    }
+
     public GameInfo getGameInfo() {
         return this.gameInfo;
     }
@@ -176,7 +176,6 @@ public class GameScore implements Serializable {
     public String toString() {
         return "GameScore{" +
             "id=" + getId() +
-            ", gNo=" + getgNo() +
             ", playerScore1=" + getPlayerScore1() +
             ", playerScore2=" + getPlayerScore2() +
             ", playerScore3=" + getPlayerScore3() +

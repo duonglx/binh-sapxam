@@ -6,10 +6,6 @@
   "entityTableName": "game_score",
   "fields": [
     {
-      "fieldName": "gNo",
-      "fieldType": "Long"
-    },
-    {
       "fieldName": "playerScore1",
       "fieldType": "Long"
     },
@@ -36,6 +32,12 @@
   "pagination": "pagination",
   "readOnly": false,
   "relationships": [
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    },
     {
       "otherEntityName": "gameInfo",
       "otherEntityRelationshipName": "gameScore",

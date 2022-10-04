@@ -19,28 +19,26 @@ type GameInfoFormGroupInput = IGameInfo | PartialWithRequiredKeyOf<NewGameInfo>;
 /**
  * Type that converts some properties for forms.
  */
-type FormValueOf<T extends IGameInfo | NewGameInfo> = Omit<T, 'gDatetime' | 'createdDate'> & {
+type FormValueOf<T extends IGameInfo | NewGameInfo> = Omit<T, 'gDatetime'> & {
   gDatetime?: string | null;
-  createdDate?: string | null;
 };
 
 type GameInfoFormRawValue = FormValueOf<IGameInfo>;
 
 type NewGameInfoFormRawValue = FormValueOf<NewGameInfo>;
 
-type GameInfoFormDefaults = Pick<NewGameInfo, 'id' | 'gDatetime' | 'createdDate'>;
+type GameInfoFormDefaults = Pick<NewGameInfo, 'id' | 'gDatetime'>;
 
 type GameInfoFormGroupContent = {
   id: FormControl<GameInfoFormRawValue['id'] | NewGameInfo['id']>;
-  gNo: FormControl<GameInfoFormRawValue['gNo']>;
   gDatetime: FormControl<GameInfoFormRawValue['gDatetime']>;
   gDesc: FormControl<GameInfoFormRawValue['gDesc']>;
-  player1: FormControl<GameInfoFormRawValue['player1']>;
-  player2: FormControl<GameInfoFormRawValue['player2']>;
-  player3: FormControl<GameInfoFormRawValue['player3']>;
-  player4: FormControl<GameInfoFormRawValue['player4']>;
+  playerName1: FormControl<GameInfoFormRawValue['playerName1']>;
+  playerName2: FormControl<GameInfoFormRawValue['playerName2']>;
+  playerName3: FormControl<GameInfoFormRawValue['playerName3']>;
+  playerName4: FormControl<GameInfoFormRawValue['playerName4']>;
   createdBy: FormControl<GameInfoFormRawValue['createdBy']>;
-  createdDate: FormControl<GameInfoFormRawValue['createdDate']>;
+  user: FormControl<GameInfoFormRawValue['user']>;
 };
 
 export type GameInfoFormGroup = FormGroup<GameInfoFormGroupContent>;
@@ -60,15 +58,14 @@ export class GameInfoFormService {
           validators: [Validators.required],
         }
       ),
-      gNo: new FormControl(gameInfoRawValue.gNo),
       gDatetime: new FormControl(gameInfoRawValue.gDatetime),
       gDesc: new FormControl(gameInfoRawValue.gDesc),
-      player1: new FormControl(gameInfoRawValue.player1),
-      player2: new FormControl(gameInfoRawValue.player2),
-      player3: new FormControl(gameInfoRawValue.player3),
-      player4: new FormControl(gameInfoRawValue.player4),
+      playerName1: new FormControl(gameInfoRawValue.playerName1),
+      playerName2: new FormControl(gameInfoRawValue.playerName2),
+      playerName3: new FormControl(gameInfoRawValue.playerName3),
+      playerName4: new FormControl(gameInfoRawValue.playerName4),
       createdBy: new FormControl(gameInfoRawValue.createdBy),
-      createdDate: new FormControl(gameInfoRawValue.createdDate),
+      user: new FormControl(gameInfoRawValue.user),
     });
   }
 
@@ -92,7 +89,6 @@ export class GameInfoFormService {
     return {
       id: null,
       gDatetime: currentTime,
-      createdDate: currentTime,
     };
   }
 
@@ -100,7 +96,6 @@ export class GameInfoFormService {
     return {
       ...rawGameInfo,
       gDatetime: dayjs(rawGameInfo.gDatetime, DATE_TIME_FORMAT),
-      createdDate: dayjs(rawGameInfo.createdDate, DATE_TIME_FORMAT),
     };
   }
 
@@ -110,7 +105,6 @@ export class GameInfoFormService {
     return {
       ...gameInfo,
       gDatetime: gameInfo.gDatetime ? gameInfo.gDatetime.format(DATE_TIME_FORMAT) : undefined,
-      createdDate: gameInfo.createdDate ? gameInfo.createdDate.format(DATE_TIME_FORMAT) : undefined,
     };
   }
 }

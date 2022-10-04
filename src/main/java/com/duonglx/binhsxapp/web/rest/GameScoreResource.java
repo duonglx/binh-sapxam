@@ -129,9 +129,6 @@ public class GameScoreResource {
         Optional<GameScore> result = gameScoreRepository
             .findById(gameScore.getId())
             .map(existingGameScore -> {
-                if (gameScore.getgNo() != null) {
-                    existingGameScore.setgNo(gameScore.getgNo());
-                }
                 if (gameScore.getPlayerScore1() != null) {
                     existingGameScore.setPlayerScore1(gameScore.getPlayerScore1());
                 }
@@ -162,12 +159,21 @@ public class GameScoreResource {
      * {@code GET  /game-scores} : get all the gameScores.
      *
      * @param pageable the pagination information.
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of gameScores in body.
      */
     @GetMapping("/game-scores")
-    public ResponseEntity<List<GameScore>> getAllGameScores(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
+    public ResponseEntity<List<GameScore>> getAllGameScores(
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
+        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+    ) {
         log.debug("REST request to get a page of GameScores");
-        Page<GameScore> page = gameScoreRepository.findAll(pageable);
+        Page<GameScore> page;
+        if (eagerload) {
+            page = gameScoreRepository.findAllWithEagerRelationships(pageable);
+        } else {
+            page = gameScoreRepository.findAll(pageable);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -181,7 +187,7 @@ public class GameScoreResource {
     @GetMapping("/game-scores/{id}")
     public ResponseEntity<GameScore> getGameScore(@PathVariable Long id) {
         log.debug("REST request to get GameScore : {}", id);
-        Optional<GameScore> gameScore = gameScoreRepository.findById(id);
+        Optional<GameScore> gameScore = gameScoreRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(gameScore);
     }
 
