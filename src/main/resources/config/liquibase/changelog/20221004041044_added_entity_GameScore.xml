@@ -14,23 +14,23 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="player_score_1" type="bigint">
+            <column name="player_score_1" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="player_score_2" type="bigint">
+            <column name="player_score_2" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="player_score_3" type="bigint">
+            <column name="player_score_3" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="player_score_4" type="bigint">
+            <column name="player_score_4" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="created_date" type="${datetimeType}">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="user_id" type="bigint">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="game_info_id" type="bigint">
                 <constraints nullable="true" />
@@ -62,6 +62,7 @@
             <column name="player_score_3" type="numeric"/>
             <column name="player_score_4" type="numeric"/>
             <column name="created_date" type="date"/>
+            <column name="user_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

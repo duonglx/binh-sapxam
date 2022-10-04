@@ -7,11 +7,14 @@
   "fields": [
     {
       "fieldName": "gDatetime",
-      "fieldType": "Instant"
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "gDesc",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength"],
+      "fieldValidateRulesMinlength": "3"
     },
     {
       "fieldName": "playerName1",
@@ -27,10 +30,6 @@
     },
     {
       "fieldName": "playerName4",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "createdBy",
       "fieldType": "String"
     }
   ],
@@ -50,7 +49,8 @@
       "otherEntityField": "login",
       "otherEntityName": "user",
       "relationshipName": "user",
-      "relationshipType": "many-to-one"
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     }
   ],
   "service": "no"

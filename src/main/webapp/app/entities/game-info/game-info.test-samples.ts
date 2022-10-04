@@ -4,26 +4,29 @@ import { IGameInfo, NewGameInfo } from './game-info.model';
 
 export const sampleWithRequiredData: IGameInfo = {
   id: 76097,
+  gDatetime: dayjs('2022-10-03T18:50'),
+  gDesc: 'Avon',
 };
 
 export const sampleWithPartialData: IGameInfo = {
-  id: 25027,
-  playerName1: 'Movies Montana',
-  playerName3: 'Licensed mesh Canada',
+  id: 2272,
+  gDatetime: dayjs('2022-10-04T02:50'),
+  gDesc: 'Montana',
 };
 
 export const sampleWithFullData: IGameInfo = {
-  id: 41957,
-  gDatetime: dayjs('2022-10-03T18:27'),
-  gDesc: 'Czech',
-  playerName1: 'parallelism',
-  playerName2: 'Practical demand-driven Fish',
-  playerName3: 'Buckinghamshire bus Gorgeous',
-  playerName4: 'Lempira Soap',
-  createdBy: 'Portugal RSS Avon',
+  id: 69324,
+  gDatetime: dayjs('2022-10-04T01:33'),
+  gDesc: 'Keys salmon Administrator',
+  playerName1: 'Czech',
+  playerName2: 'parallelism',
+  playerName3: 'Practical demand-driven Fish',
+  playerName4: 'Buckinghamshire bus Gorgeous',
 };
 
 export const sampleWithNewData: NewGameInfo = {
+  gDatetime: dayjs('2022-10-03T17:22'),
+  gDesc: 'firmware Account Portugal',
   id: null,
 };
 

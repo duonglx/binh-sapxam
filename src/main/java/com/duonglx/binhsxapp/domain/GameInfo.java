@@ -2,10 +2,11 @@ package com.duonglx.binhsxapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -26,10 +27,13 @@ public class GameInfo implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "g_datetime")
-    private Instant gDatetime;
+    @NotNull
+    @Column(name = "g_datetime", nullable = false)
+    private ZonedDateTime gDatetime;
 
-    @Column(name = "g_desc")
+    @NotNull
+    @Size(min = 3)
+    @Column(name = "g_desc", nullable = false)
     private String gDesc;
 
     @Column(name = "player_name_1")
@@ -44,15 +48,13 @@ public class GameInfo implements Serializable {
     @Column(name = "player_name_4")
     private String playerName4;
 
-    @Column(name = "created_by")
-    private String createdBy;
-
     @OneToMany(mappedBy = "gameInfo")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "user", "gameInfo" }, allowSetters = true)
     private Set<GameScore> gameScores = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -70,16 +72,16 @@ public class GameInfo implements Serializable {
         this.id = id;
     }
 
-    public Instant getgDatetime() {
+    public ZonedDateTime getgDatetime() {
         return this.gDatetime;
     }
 
-    public GameInfo gDatetime(Instant gDatetime) {
+    public GameInfo gDatetime(ZonedDateTime gDatetime) {
         this.setgDatetime(gDatetime);
         return this;
     }
 
-    public void setgDatetime(Instant gDatetime) {
+    public void setgDatetime(ZonedDateTime gDatetime) {
         this.gDatetime = gDatetime;
     }
 
@@ -146,19 +148,6 @@ public class GameInfo implements Serializable {
 
     public void setPlayerName4(String playerName4) {
         this.playerName4 = playerName4;
-    }
-
-    public String getCreatedBy() {
-        return this.createdBy;
-    }
-
-    public GameInfo createdBy(String createdBy) {
-        this.setCreatedBy(createdBy);
-        return this;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
     }
 
     public Set<GameScore> getGameScores() {
@@ -235,7 +224,6 @@ public class GameInfo implements Serializable {
             ", playerName2='" + getPlayerName2() + "'" +
             ", playerName3='" + getPlayerName3() + "'" +
             ", playerName4='" + getPlayerName4() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
             "}";
     }
 }

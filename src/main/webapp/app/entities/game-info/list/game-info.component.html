@@ -74,12 +74,6 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="createdBy">
-            <div class="d-flex">
-              <span jhiTranslate="binhSapXamApp.gameInfo.createdBy">Created By</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="user.login">
             <div class="d-flex">
               <span jhiTranslate="binhSapXamApp.gameInfo.user">User</span>
@@ -100,7 +94,6 @@
           <td>{{ gameInfo.playerName2 }}</td>
           <td>{{ gameInfo.playerName3 }}</td>
           <td>{{ gameInfo.playerName4 }}</td>
-          <td>{{ gameInfo.createdBy }}</td>
           <td>
             {{ gameInfo.user?.login }}
           </td>
