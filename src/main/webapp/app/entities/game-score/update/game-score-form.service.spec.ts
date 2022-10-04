@@ -21,10 +21,10 @@ describe('GameScore Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             gNo: expect.any(Object),
-            player1: expect.any(Object),
-            player2: expect.any(Object),
-            player3: expect.any(Object),
-            player4: expect.any(Object),
+            playerScore1: expect.any(Object),
+            playerScore2: expect.any(Object),
+            playerScore3: expect.any(Object),
+            playerScore4: expect.any(Object),
             createdDate: expect.any(Object),
             gameInfo: expect.any(Object),
           })
@@ -38,10 +38,10 @@ describe('GameScore Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             gNo: expect.any(Object),
-            player1: expect.any(Object),
-            player2: expect.any(Object),
-            player3: expect.any(Object),
-            player4: expect.any(Object),
+            playerScore1: expect.any(Object),
+            playerScore2: expect.any(Object),
+            playerScore3: expect.any(Object),
+            playerScore4: expect.any(Object),
             createdDate: expect.any(Object),
             gameInfo: expect.any(Object),
           })

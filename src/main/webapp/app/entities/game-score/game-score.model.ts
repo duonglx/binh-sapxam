@@ -4,10 +4,10 @@ import { IGameInfo } from 'app/entities/game-info/game-info.model';
 export interface IGameScore {
   id: number;
   gNo?: number | null;
-  player1?: string | null;
-  player2?: string | null;
-  player3?: string | null;
-  player4?: string | null;
+  playerScore1?: number | null;
+  playerScore2?: number | null;
+  playerScore3?: number | null;
+  playerScore4?: number | null;
   createdDate?: dayjs.Dayjs | null;
   gameInfo?: Pick<IGameInfo, 'id'> | null;
 }

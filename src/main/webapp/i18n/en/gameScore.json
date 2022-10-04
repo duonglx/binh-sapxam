@@ -19,10 +19,10 @@
       },
       "id": "ID",
       "gNo": "G No",
-      "player1": "Player 1",
-      "player2": "Player 2",
-      "player3": "Player 3",
-      "player4": "Player 4",
+      "playerScore1": "Player Score 1",
+      "playerScore2": "Player Score 2",
+      "playerScore3": "Player Score 3",
+      "playerScore4": "Player Score 4",
       "createdDate": "Created Date",
       "gameInfo": "Game Info"
     }

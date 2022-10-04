@@ -44,27 +44,27 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="player1">
+          <th scope="col" jhiSortBy="playerScore1">
             <div class="d-flex">
-              <span jhiTranslate="binhSapXamApp.gameScore.player1">Player 1</span>
+              <span jhiTranslate="binhSapXamApp.gameScore.playerScore1">Player Score 1</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="player2">
+          <th scope="col" jhiSortBy="playerScore2">
             <div class="d-flex">
-              <span jhiTranslate="binhSapXamApp.gameScore.player2">Player 2</span>
+              <span jhiTranslate="binhSapXamApp.gameScore.playerScore2">Player Score 2</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="player3">
+          <th scope="col" jhiSortBy="playerScore3">
             <div class="d-flex">
-              <span jhiTranslate="binhSapXamApp.gameScore.player3">Player 3</span>
+              <span jhiTranslate="binhSapXamApp.gameScore.playerScore3">Player Score 3</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="player4">
+          <th scope="col" jhiSortBy="playerScore4">
             <div class="d-flex">
-              <span jhiTranslate="binhSapXamApp.gameScore.player4">Player 4</span>
+              <span jhiTranslate="binhSapXamApp.gameScore.playerScore4">Player Score 4</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -89,10 +89,10 @@
             <a [routerLink]="['/game-score', gameScore.id, 'view']">{{ gameScore.id }}</a>
           </td>
           <td>{{ gameScore.gNo }}</td>
-          <td>{{ gameScore.player1 }}</td>
-          <td>{{ gameScore.player2 }}</td>
-          <td>{{ gameScore.player3 }}</td>
-          <td>{{ gameScore.player4 }}</td>
+          <td>{{ gameScore.playerScore1 }}</td>
+          <td>{{ gameScore.playerScore2 }}</td>
+          <td>{{ gameScore.playerScore3 }}</td>
+          <td>{{ gameScore.playerScore4 }}</td>
           <td>{{ gameScore.createdDate | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="gameScore.gameInfo">

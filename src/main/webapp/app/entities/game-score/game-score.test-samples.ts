@@ -9,20 +9,20 @@ export const sampleWithRequiredData: IGameScore = {
 export const sampleWithPartialData: IGameScore = {
   id: 36675,
   gNo: 94043,
-  player2: 'Republic)',
-  player3: 'Marketing Jewelery payment',
-  player4: 'TCP alarm',
-  createdDate: dayjs('2022-10-03T17:18'),
+  playerScore2: 32101,
+  playerScore3: 53350,
+  playerScore4: 81125,
+  createdDate: dayjs('2022-10-03T11:31'),
 };
 
 export const sampleWithFullData: IGameScore = {
-  id: 69676,
-  gNo: 17334,
-  player1: 'Multi-channelled Kuwait',
-  player2: 'Bike Franc',
-  player3: 'SCSI invoice',
-  player4: 'array maroon Handcrafted',
-  createdDate: dayjs('2022-10-03T11:09'),
+  id: 97996,
+  gNo: 93812,
+  playerScore1: 14249,
+  playerScore2: 38527,
+  playerScore3: 807,
+  playerScore4: 81235,
+  createdDate: dayjs('2022-10-03T04:59'),
 };
 
 export const sampleWithNewData: NewGameScore = {

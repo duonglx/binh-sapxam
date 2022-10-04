@@ -34,17 +34,17 @@ class GameScoreResourceIT {
     private static final Long DEFAULT_G_NO = 1L;
     private static final Long UPDATED_G_NO = 2L;
 
-    private static final String DEFAULT_PLAYER_1 = "AAAAAAAAAA";
-    private static final String UPDATED_PLAYER_1 = "BBBBBBBBBB";
+    private static final Long DEFAULT_PLAYER_SCORE_1 = 1L;
+    private static final Long UPDATED_PLAYER_SCORE_1 = 2L;
 
-    private static final String DEFAULT_PLAYER_2 = "AAAAAAAAAA";
-    private static final String UPDATED_PLAYER_2 = "BBBBBBBBBB";
+    private static final Long DEFAULT_PLAYER_SCORE_2 = 1L;
+    private static final Long UPDATED_PLAYER_SCORE_2 = 2L;
 
-    private static final String DEFAULT_PLAYER_3 = "AAAAAAAAAA";
-    private static final String UPDATED_PLAYER_3 = "BBBBBBBBBB";
+    private static final Long DEFAULT_PLAYER_SCORE_3 = 1L;
+    private static final Long UPDATED_PLAYER_SCORE_3 = 2L;
 
-    private static final String DEFAULT_PLAYER_4 = "AAAAAAAAAA";
-    private static final String UPDATED_PLAYER_4 = "BBBBBBBBBB";
+    private static final Long DEFAULT_PLAYER_SCORE_4 = 1L;
+    private static final Long UPDATED_PLAYER_SCORE_4 = 2L;
 
     private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
@@ -75,10 +75,10 @@ class GameScoreResourceIT {
     public static GameScore createEntity(EntityManager em) {
         GameScore gameScore = new GameScore()
             .gNo(DEFAULT_G_NO)
-            .player1(DEFAULT_PLAYER_1)
-            .player2(DEFAULT_PLAYER_2)
-            .player3(DEFAULT_PLAYER_3)
-            .player4(DEFAULT_PLAYER_4)
+            .playerScore1(DEFAULT_PLAYER_SCORE_1)
+            .playerScore2(DEFAULT_PLAYER_SCORE_2)
+            .playerScore3(DEFAULT_PLAYER_SCORE_3)
+            .playerScore4(DEFAULT_PLAYER_SCORE_4)
             .createdDate(DEFAULT_CREATED_DATE);
         return gameScore;
     }
@@ -92,10 +92,10 @@ class GameScoreResourceIT {
     public static GameScore createUpdatedEntity(EntityManager em) {
         GameScore gameScore = new GameScore()
             .gNo(UPDATED_G_NO)
-            .player1(UPDATED_PLAYER_1)
-            .player2(UPDATED_PLAYER_2)
-            .player3(UPDATED_PLAYER_3)
-            .player4(UPDATED_PLAYER_4)
+            .playerScore1(UPDATED_PLAYER_SCORE_1)
+            .playerScore2(UPDATED_PLAYER_SCORE_2)
+            .playerScore3(UPDATED_PLAYER_SCORE_3)
+            .playerScore4(UPDATED_PLAYER_SCORE_4)
             .createdDate(UPDATED_CREATED_DATE);
         return gameScore;
     }
@@ -119,10 +119,10 @@ class GameScoreResourceIT {
         assertThat(gameScoreList).hasSize(databaseSizeBeforeCreate + 1);
         GameScore testGameScore = gameScoreList.get(gameScoreList.size() - 1);
         assertThat(testGameScore.getgNo()).isEqualTo(DEFAULT_G_NO);
-        assertThat(testGameScore.getPlayer1()).isEqualTo(DEFAULT_PLAYER_1);
-        assertThat(testGameScore.getPlayer2()).isEqualTo(DEFAULT_PLAYER_2);
-        assertThat(testGameScore.getPlayer3()).isEqualTo(DEFAULT_PLAYER_3);
-        assertThat(testGameScore.getPlayer4()).isEqualTo(DEFAULT_PLAYER_4);
+        assertThat(testGameScore.getPlayerScore1()).isEqualTo(DEFAULT_PLAYER_SCORE_1);
+        assertThat(testGameScore.getPlayerScore2()).isEqualTo(DEFAULT_PLAYER_SCORE_2);
+        assertThat(testGameScore.getPlayerScore3()).isEqualTo(DEFAULT_PLAYER_SCORE_3);
+        assertThat(testGameScore.getPlayerScore4()).isEqualTo(DEFAULT_PLAYER_SCORE_4);
         assertThat(testGameScore.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
     }
 
@@ -157,10 +157,10 @@ class GameScoreResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(gameScore.getId().intValue())))
             .andExpect(jsonPath("$.[*].gNo").value(hasItem(DEFAULT_G_NO.intValue())))
-            .andExpect(jsonPath("$.[*].player1").value(hasItem(DEFAULT_PLAYER_1)))
-            .andExpect(jsonPath("$.[*].player2").value(hasItem(DEFAULT_PLAYER_2)))
-            .andExpect(jsonPath("$.[*].player3").value(hasItem(DEFAULT_PLAYER_3)))
-            .andExpect(jsonPath("$.[*].player4").value(hasItem(DEFAULT_PLAYER_4)))
+            .andExpect(jsonPath("$.[*].playerScore1").value(hasItem(DEFAULT_PLAYER_SCORE_1.intValue())))
+            .andExpect(jsonPath("$.[*].playerScore2").value(hasItem(DEFAULT_PLAYER_SCORE_2.intValue())))
+            .andExpect(jsonPath("$.[*].playerScore3").value(hasItem(DEFAULT_PLAYER_SCORE_3.intValue())))
+            .andExpect(jsonPath("$.[*].playerScore4").value(hasItem(DEFAULT_PLAYER_SCORE_4.intValue())))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())));
     }
 
@@ -177,10 +177,10 @@ class GameScoreResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(gameScore.getId().intValue()))
             .andExpect(jsonPath("$.gNo").value(DEFAULT_G_NO.intValue()))
-            .andExpect(jsonPath("$.player1").value(DEFAULT_PLAYER_1))
-            .andExpect(jsonPath("$.player2").value(DEFAULT_PLAYER_2))
-            .andExpect(jsonPath("$.player3").value(DEFAULT_PLAYER_3))
-            .andExpect(jsonPath("$.player4").value(DEFAULT_PLAYER_4))
+            .andExpect(jsonPath("$.playerScore1").value(DEFAULT_PLAYER_SCORE_1.intValue()))
+            .andExpect(jsonPath("$.playerScore2").value(DEFAULT_PLAYER_SCORE_2.intValue()))
+            .andExpect(jsonPath("$.playerScore3").value(DEFAULT_PLAYER_SCORE_3.intValue()))
+            .andExpect(jsonPath("$.playerScore4").value(DEFAULT_PLAYER_SCORE_4.intValue()))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()));
     }
 
@@ -205,10 +205,10 @@ class GameScoreResourceIT {
         em.detach(updatedGameScore);
         updatedGameScore
             .gNo(UPDATED_G_NO)
-            .player1(UPDATED_PLAYER_1)
-            .player2(UPDATED_PLAYER_2)
-            .player3(UPDATED_PLAYER_3)
-            .player4(UPDATED_PLAYER_4)
+            .playerScore1(UPDATED_PLAYER_SCORE_1)
+            .playerScore2(UPDATED_PLAYER_SCORE_2)
+            .playerScore3(UPDATED_PLAYER_SCORE_3)
+            .playerScore4(UPDATED_PLAYER_SCORE_4)
             .createdDate(UPDATED_CREATED_DATE);
 
         restGameScoreMockMvc
@@ -224,10 +224,10 @@ class GameScoreResourceIT {
         assertThat(gameScoreList).hasSize(databaseSizeBeforeUpdate);
         GameScore testGameScore = gameScoreList.get(gameScoreList.size() - 1);
         assertThat(testGameScore.getgNo()).isEqualTo(UPDATED_G_NO);
-        assertThat(testGameScore.getPlayer1()).isEqualTo(UPDATED_PLAYER_1);
-        assertThat(testGameScore.getPlayer2()).isEqualTo(UPDATED_PLAYER_2);
-        assertThat(testGameScore.getPlayer3()).isEqualTo(UPDATED_PLAYER_3);
-        assertThat(testGameScore.getPlayer4()).isEqualTo(UPDATED_PLAYER_4);
+        assertThat(testGameScore.getPlayerScore1()).isEqualTo(UPDATED_PLAYER_SCORE_1);
+        assertThat(testGameScore.getPlayerScore2()).isEqualTo(UPDATED_PLAYER_SCORE_2);
+        assertThat(testGameScore.getPlayerScore3()).isEqualTo(UPDATED_PLAYER_SCORE_3);
+        assertThat(testGameScore.getPlayerScore4()).isEqualTo(UPDATED_PLAYER_SCORE_4);
         assertThat(testGameScore.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
     }
 
@@ -299,7 +299,10 @@ class GameScoreResourceIT {
         GameScore partialUpdatedGameScore = new GameScore();
         partialUpdatedGameScore.setId(gameScore.getId());
 
-        partialUpdatedGameScore.player1(UPDATED_PLAYER_1).player3(UPDATED_PLAYER_3).player4(UPDATED_PLAYER_4);
+        partialUpdatedGameScore
+            .playerScore1(UPDATED_PLAYER_SCORE_1)
+            .playerScore3(UPDATED_PLAYER_SCORE_3)
+            .playerScore4(UPDATED_PLAYER_SCORE_4);
 
         restGameScoreMockMvc
             .perform(
@@ -314,10 +317,10 @@ class GameScoreResourceIT {
         assertThat(gameScoreList).hasSize(databaseSizeBeforeUpdate);
         GameScore testGameScore = gameScoreList.get(gameScoreList.size() - 1);
         assertThat(testGameScore.getgNo()).isEqualTo(DEFAULT_G_NO);
-        assertThat(testGameScore.getPlayer1()).isEqualTo(UPDATED_PLAYER_1);
-        assertThat(testGameScore.getPlayer2()).isEqualTo(DEFAULT_PLAYER_2);
-        assertThat(testGameScore.getPlayer3()).isEqualTo(UPDATED_PLAYER_3);
-        assertThat(testGameScore.getPlayer4()).isEqualTo(UPDATED_PLAYER_4);
+        assertThat(testGameScore.getPlayerScore1()).isEqualTo(UPDATED_PLAYER_SCORE_1);
+        assertThat(testGameScore.getPlayerScore2()).isEqualTo(DEFAULT_PLAYER_SCORE_2);
+        assertThat(testGameScore.getPlayerScore3()).isEqualTo(UPDATED_PLAYER_SCORE_3);
+        assertThat(testGameScore.getPlayerScore4()).isEqualTo(UPDATED_PLAYER_SCORE_4);
         assertThat(testGameScore.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
     }
 
@@ -335,10 +338,10 @@ class GameScoreResourceIT {
 
         partialUpdatedGameScore
             .gNo(UPDATED_G_NO)
-            .player1(UPDATED_PLAYER_1)
-            .player2(UPDATED_PLAYER_2)
-            .player3(UPDATED_PLAYER_3)
-            .player4(UPDATED_PLAYER_4)
+            .playerScore1(UPDATED_PLAYER_SCORE_1)
+            .playerScore2(UPDATED_PLAYER_SCORE_2)
+            .playerScore3(UPDATED_PLAYER_SCORE_3)
+            .playerScore4(UPDATED_PLAYER_SCORE_4)
             .createdDate(UPDATED_CREATED_DATE);
 
         restGameScoreMockMvc
@@ -354,10 +357,10 @@ class GameScoreResourceIT {
         assertThat(gameScoreList).hasSize(databaseSizeBeforeUpdate);
         GameScore testGameScore = gameScoreList.get(gameScoreList.size() - 1);
         assertThat(testGameScore.getgNo()).isEqualTo(UPDATED_G_NO);
-        assertThat(testGameScore.getPlayer1()).isEqualTo(UPDATED_PLAYER_1);
-        assertThat(testGameScore.getPlayer2()).isEqualTo(UPDATED_PLAYER_2);
-        assertThat(testGameScore.getPlayer3()).isEqualTo(UPDATED_PLAYER_3);
-        assertThat(testGameScore.getPlayer4()).isEqualTo(UPDATED_PLAYER_4);
+        assertThat(testGameScore.getPlayerScore1()).isEqualTo(UPDATED_PLAYER_SCORE_1);
+        assertThat(testGameScore.getPlayerScore2()).isEqualTo(UPDATED_PLAYER_SCORE_2);
+        assertThat(testGameScore.getPlayerScore3()).isEqualTo(UPDATED_PLAYER_SCORE_3);
+        assertThat(testGameScore.getPlayerScore4()).isEqualTo(UPDATED_PLAYER_SCORE_4);
         assertThat(testGameScore.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
     }
 

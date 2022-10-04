@@ -27,17 +27,17 @@ public class GameScore implements Serializable {
     @Column(name = "g_no")
     private Long gNo;
 
-    @Column(name = "player_1")
-    private String player1;
+    @Column(name = "player_score_1")
+    private Long playerScore1;
 
-    @Column(name = "player_2")
-    private String player2;
+    @Column(name = "player_score_2")
+    private Long playerScore2;
 
-    @Column(name = "player_3")
-    private String player3;
+    @Column(name = "player_score_3")
+    private Long playerScore3;
 
-    @Column(name = "player_4")
-    private String player4;
+    @Column(name = "player_score_4")
+    private Long playerScore4;
 
     @Column(name = "created_date")
     private Instant createdDate;
@@ -74,56 +74,56 @@ public class GameScore implements Serializable {
         this.gNo = gNo;
     }
 
-    public String getPlayer1() {
-        return this.player1;
+    public Long getPlayerScore1() {
+        return this.playerScore1;
     }
 
-    public GameScore player1(String player1) {
-        this.setPlayer1(player1);
+    public GameScore playerScore1(Long playerScore1) {
+        this.setPlayerScore1(playerScore1);
         return this;
     }
 
-    public void setPlayer1(String player1) {
-        this.player1 = player1;
+    public void setPlayerScore1(Long playerScore1) {
+        this.playerScore1 = playerScore1;
     }
 
-    public String getPlayer2() {
-        return this.player2;
+    public Long getPlayerScore2() {
+        return this.playerScore2;
     }
 
-    public GameScore player2(String player2) {
-        this.setPlayer2(player2);
+    public GameScore playerScore2(Long playerScore2) {
+        this.setPlayerScore2(playerScore2);
         return this;
     }
 
-    public void setPlayer2(String player2) {
-        this.player2 = player2;
+    public void setPlayerScore2(Long playerScore2) {
+        this.playerScore2 = playerScore2;
     }
 
-    public String getPlayer3() {
-        return this.player3;
+    public Long getPlayerScore3() {
+        return this.playerScore3;
     }
 
-    public GameScore player3(String player3) {
-        this.setPlayer3(player3);
+    public GameScore playerScore3(Long playerScore3) {
+        this.setPlayerScore3(playerScore3);
         return this;
     }
 
-    public void setPlayer3(String player3) {
-        this.player3 = player3;
+    public void setPlayerScore3(Long playerScore3) {
+        this.playerScore3 = playerScore3;
     }
 
-    public String getPlayer4() {
-        return this.player4;
+    public Long getPlayerScore4() {
+        return this.playerScore4;
     }
 
-    public GameScore player4(String player4) {
-        this.setPlayer4(player4);
+    public GameScore playerScore4(Long playerScore4) {
+        this.setPlayerScore4(playerScore4);
         return this;
     }
 
-    public void setPlayer4(String player4) {
-        this.player4 = player4;
+    public void setPlayerScore4(Long playerScore4) {
+        this.playerScore4 = playerScore4;
     }
 
     public Instant getCreatedDate() {
@@ -177,10 +177,10 @@ public class GameScore implements Serializable {
         return "GameScore{" +
             "id=" + getId() +
             ", gNo=" + getgNo() +
-            ", player1='" + getPlayer1() + "'" +
-            ", player2='" + getPlayer2() + "'" +
-            ", player3='" + getPlayer3() + "'" +
-            ", player4='" + getPlayer4() + "'" +
+            ", playerScore1=" + getPlayerScore1() +
+            ", playerScore2=" + getPlayerScore2() +
+            ", playerScore3=" + getPlayerScore3() +
+            ", playerScore4=" + getPlayerScore4() +
             ", createdDate='" + getCreatedDate() + "'" +
             "}";
     }
